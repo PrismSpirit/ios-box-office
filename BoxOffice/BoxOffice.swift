@@ -23,7 +23,7 @@ extension BoxOffice {
     }
 }
 
-extension BoxOffice.BoxOfficeResult {
+extension BoxOffice {
     struct DailyBoxOffice: Decodable {
         private enum CodingKeys: String, CodingKey {
             case registrationNumber = "rnum"
