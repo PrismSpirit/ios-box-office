@@ -1,16 +1,16 @@
 //
-//  BoxOffice.swift
+//  DailyBoxOfficeResponseDTO.swift
 //  BoxOffice
 //
 //  Created by JIWOONG on 2024/04/02.
 //
 
-struct BoxOffice: Decodable {
-    let boxOfficeResult: BoxOfficeResult
+struct DailyBoxOfficeResponseDTO: Decodable {
+    let boxOfficeResult: BoxOfficeResultDTO
 }
 
-extension BoxOffice {
-    struct BoxOfficeResult: Decodable {
+extension DailyBoxOfficeResponseDTO {
+    struct BoxOfficeResultDTO: Decodable {
         private enum CodingKeys: String, CodingKey {
             case boxOfficeType = "boxofficeType"
             case queriedDateRange = "showRange"
@@ -23,7 +23,7 @@ extension BoxOffice {
     }
 }
 
-extension BoxOffice {
+extension DailyBoxOfficeResponseDTO {
     struct DailyBoxOffice: Decodable {
         private enum CodingKeys: String, CodingKey {
             case registrationNumber = "rnum"
@@ -46,13 +46,13 @@ extension BoxOffice {
             case showCount = "showCnt"
         }
         
-        enum RankingEntry: String, Decodable {
+        enum RankingEntryDTO: String, Decodable {
             case old = "OLD"
             case new = "NEW"
         }
         
         let registrationNumber, rank, rankChange: String
-        let rankingEntry: RankingEntry
+        let rankingEntry: RankingEntryDTO
         let movieCode, movieName, openDate: String
         let salesAmount, salesShare, salesChange, salesChangeRate, salesAccumulation: String
         let audienceCount, audienceChange, audienceChangeRate, audienceAccmulation: String
