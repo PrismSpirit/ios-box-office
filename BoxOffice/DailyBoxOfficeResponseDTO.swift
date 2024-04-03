@@ -19,12 +19,12 @@ extension DailyBoxOfficeResponseDTO {
         
         let boxOfficeType: String
         let queriedDateRange: String
-        let dailyBoxOfficeList: [DailyBoxOffice]
+        let dailyBoxOfficeList: [DailyBoxOfficeDTO]
     }
 }
 
 extension DailyBoxOfficeResponseDTO {
-    struct DailyBoxOffice: Decodable {
+    struct DailyBoxOfficeDTO: Decodable {
         private enum CodingKeys: String, CodingKey {
             case registrationNumber = "rnum"
             case rank
