@@ -25,12 +25,9 @@ final class NetworkService {
     }
     
     func getDailyBoxOffice(date: String, completion: @escaping CompletionHandler) {
-        let baseURL = "https://www.kobis.or.kr"
-        let path = "/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
-        
-        guard var components = URLComponents(string: "\(baseURL)\(path)") else {
+        guard var components = URLComponents(url: APIs.Kobis.BoxOffice.dailyList.url,
+                                             resolvingAgainstBaseURL: false) else {
             completion(.failure(.invalidURL))
-            
             return
         }
 
@@ -69,12 +66,9 @@ final class NetworkService {
     }
     
     func getMovieDetail(movieCode: String, completion: @escaping CompletionHandler) {
-        let baseURL = "https://www.kobis.or.kr"
-        let path = "/kobisopenapi/webservice/rest/movie/searchMovieInfo.json"
-        
-        guard var components = URLComponents(string: "\(baseURL)\(path)") else {
+        guard var components = URLComponents(url: APIs.Kobis.Movie.info.url,
+                                             resolvingAgainstBaseURL: false) else {
             completion(.failure(.invalidURL))
-            
             return
         }
         
