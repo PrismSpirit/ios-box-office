@@ -24,59 +24,17 @@ final class NetworkService {
         self.session = session
     }
     
-    func getDailyBoxOffice(date: String, completion: @escaping CompletionHandler) {
-        guard var components = URLComponents(url: APIs.Kobis.BoxOffice.dailyList.url,
-                                             resolvingAgainstBaseURL: false) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-
-        components.queryItems = [URLQueryItem(name: "key", value: Environment.apiKey), URLQueryItem(name: "targetDt", value: date)]
-
-        guard let url = components.url else {
-            completion(.failure(.invalidURL))
-            return
-        }
-
-        let task = session.dataTask(with: url) { data, response, error in
-            if let error {
-                let nsError = error as NSError
-                switch nsError.code {
-                case NSURLErrorTimedOut:
-                    completion(.failure(.badNetwork(error)))
-                default:
-                    completion(.failure(.requestFailure(error)))
-                }
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure(.invalidStatusCode))
-                return
-            }
-
-            if let data {
-                completion(.success(data))
-            } else {
-                completion(.failure(.noData))
-            }
-        }
-        task.resume()
-    }
-    
-    func getMovieDetail(movieCode: String, completion: @escaping CompletionHandler) {
-        guard var components = URLComponents(url: APIs.Kobis.Movie.info.url,
+    func request(url: URL, queryParameters: [String: String], completion: @escaping CompletionHandler) {
+        guard var components = URLComponents(url: url,
                                              resolvingAgainstBaseURL: false) else {
             completion(.failure(.invalidURL))
             return
         }
         
-        components.queryItems = [
-            URLQueryItem(name: "key", value: Environment.apiKey),
-            URLQueryItem(name: "movieCd", value: movieCode)
-        ]
-        
+        components.queryItems = queryParameters.map {
+            URLQueryItem(name: $0.key, value: $0.value)
+        }
+
         guard let url = components.url else {
             completion(.failure(.invalidURL))
             return
