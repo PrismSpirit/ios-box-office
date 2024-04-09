@@ -8,12 +8,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    private let collectionView: UICollectionView = {
+        let config = UICollectionLayoutListConfiguration(appearance: .plain)
+        let layout = UICollectionViewCompositionalLayout.list(using: config)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
     }
-
-
 }
 
