@@ -42,7 +42,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         return label
     }()
     
-    private let rankingEntryLabel: UILabel = {
+    private let rankingChangeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .callout)
@@ -65,7 +65,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
     
     private func setupUI() {
         rankStackView.addArrangedSubview(rankLabel)
-        rankStackView.addArrangedSubview(rankingEntryLabel)
+        rankStackView.addArrangedSubview(rankingChangeLabel)
         
         infoStackView.addArrangedSubview(titleLabel)
         infoStackView.addArrangedSubview(audienceLabel)
