@@ -96,7 +96,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         }
         
         titleLabel.text = model.title
-        audienceLabel.text = "오늘 \(model.todayAudience) / 총 \(model.totalAudience)"
+        audienceLabel.text = "오늘 \(model.todayAudience).formatted(.number)) / 총 \(model.totalAudience).formatted(.number))"
     }
     
     private func convertChangeToAttributedString(amount: Int?) -> NSAttributedString {
@@ -118,4 +118,5 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         
         return attributedString
     }
+    
 }
