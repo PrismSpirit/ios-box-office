@@ -86,7 +86,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
     
         switch model.rankingEntry {
         case .old:
-            rankLabel.attributedText = convertChangeToAttributedString(amount: Int(model.rankChange))
+            rankingChangeLabel.attributedText = convertChangeToAttributedString(amount: Int(model.rankChange))
         case .new:
             rankingChangeLabel.text = "신규"
             rankingChangeLabel.textColor = .systemPink
