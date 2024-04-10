@@ -80,4 +80,39 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
             infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
         ])
     }
+    
+    func updateComponents(with model: Movie) {
+        rankLabel.text = model.rank
+    
+        switch model.rankingEntry {
+        case .old:
+            rankLabel.attributedText = convertChangeToAttributedString(amount: Int(model.rankChange))
+        case .new:
+            rankingChangeLabel.text = "신규"
+            rankingChangeLabel.textColor = .systemPink
+        }
+        
+        titleLabel.text = model.title
+        audienceLabel.text = "오늘 \(model.todayAudience) / 총 \(model.totalAudience)"
+    }
+    
+    private func convertChangeToAttributedString(amount: Int) -> NSAttributedString {
+        guard amount != 0 else {
+            return NSAttributedString(string: "-")
+        }
+        
+        let attributedString: NSMutableAttributedString
+        
+        if amount > 0 {
+            attributedString = NSMutableAttributedString(string: "▲",
+                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        } else {
+            attributedString = NSMutableAttributedString(string: "▼",
+                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue])
+        }
+        
+        attributedString.append(NSAttributedString(string: String(abs(amount))))
+        
+        return attributedString
+    }
 }
