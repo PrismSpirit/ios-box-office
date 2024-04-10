@@ -24,13 +24,15 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
     private let networkService = NetworkService()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return boxOffices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyBoxOfficeListCell.identifier, for: indexPath) as? DailyBoxOfficeListCell else {
             return UICollectionViewCell()
         }
+        
+        cell.updateComponents(with: boxOffices[indexPath.row])
         
         return cell
     }
