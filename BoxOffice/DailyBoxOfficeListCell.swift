@@ -59,7 +59,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
     private let audienceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .callout)
         return label
     }()
     
