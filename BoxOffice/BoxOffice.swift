@@ -6,12 +6,12 @@
 //
 
 struct BoxOffice {
-    let rank: String
-    let rankChange: String
+    let rank: Int
+    let rankChange: Int
     let rankingEntry: RankingEntry
     let title: String
-    let todayAudience: String
-    let totalAudience: String
+    let todayAudience: Int
+    let totalAudience: Int
     
     enum RankingEntry {
         case old
