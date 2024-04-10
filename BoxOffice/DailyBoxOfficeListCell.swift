@@ -73,7 +73,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         NSLayoutConstraint.activate([
             rankStackView.widthAnchor.constraint(equalToConstant: 48),
             rankStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            rankStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: 8),
+            rankStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
             rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             
             infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 16),
