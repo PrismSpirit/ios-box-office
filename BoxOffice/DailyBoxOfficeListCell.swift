@@ -74,12 +74,12 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         self.contentView.addSubview(infoStackView)
         
         NSLayoutConstraint.activate([
-            rankStackView.widthAnchor.constraint(equalToConstant: 48),
+            rankStackView.widthAnchor.constraint(equalToConstant: 56),
             rankStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             rankStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
-            rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 28),
+            rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 24),
             
-            infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 20),
+            infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 16),
             infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
             
             separatorLayoutGuide.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
