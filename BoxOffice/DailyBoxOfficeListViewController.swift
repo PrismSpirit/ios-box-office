@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DailyBoxOfficeListViewController.swift
 //  BoxOffice
 //
 //  Created by kjs on 13/01/23.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private let collectionView: UICollectionView = {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(DailyBoxOfficeListCell.self, forCellWithReuseIdentifier: "DailyBoxOfficeListCell")
+        collectionView.register(DailyBoxOfficeListCell.self, forCellWithReuseIdentifier: DailyBoxOfficeListCell.identifier)
         
         return collectionView
     }()
@@ -24,8 +24,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyBoxOfficeListCell", for: indexPath) as? DailyBoxOfficeListCell else {
-            fatalError("Wrong cell class dequeued")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyBoxOfficeListCell.identifier, for: indexPath) as? DailyBoxOfficeListCell else {
+            return UICollectionViewCell()
         }
         
         return cell

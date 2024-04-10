@@ -1,5 +1,5 @@
 //
-//  BoxOfficeListCell.swift
+//  DailyBoxOfficeListCell.swift
 //  BoxOffice
 //
 //  Created by Jaehun Lee on 4/10/24.
@@ -81,7 +81,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         ])
     }
     
-    func updateComponents(with model: Movie) {
+    func updateComponents(with model: BoxOffice) {
         rankLabel.text = model.rank
     
         switch model.rankingEntry {
@@ -96,8 +96,8 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
         audienceLabel.text = "오늘 \(model.todayAudience) / 총 \(model.totalAudience)"
     }
     
-    private func convertChangeToAttributedString(amount: Int) -> NSAttributedString {
-        guard amount != 0 else {
+    private func convertChangeToAttributedString(amount: Int?) -> NSAttributedString {
+        guard let amount, amount != 0 else {
             return NSAttributedString(string: "-")
         }
         

@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let viewController = ViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let dailyBoxOfficeListViewController = DailyBoxOfficeListViewController()
+        let navigationController = UINavigationController(rootViewController: dailyBoxOfficeListViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
