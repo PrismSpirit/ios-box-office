@@ -10,6 +10,10 @@ import UIKit
 class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private var boxOffices: [BoxOffice] = []
     
+    private var yesterdayDate: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    }
+    
     private let collectionView: UICollectionView = {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: config)
@@ -39,6 +43,7 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = yesterdayDate.ISO8601Format(.iso8601FullDate)
         
         collectionView.delegate = self
         collectionView.dataSource = self
