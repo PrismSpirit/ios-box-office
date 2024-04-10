@@ -10,7 +10,7 @@ struct BoxOffice {
     let rankChange: String
     let rankingEntry: RankingEntry
     let title: String
-    let totayAudience: String
+    let todayAudience: String
     let totalAudience: String
     
     enum RankingEntry {
