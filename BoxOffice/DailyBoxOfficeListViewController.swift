@@ -52,6 +52,7 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
+        configureRefreshControl()
         setConstraints()
         
         fetchDailyBoxOffices()
@@ -95,6 +96,19 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
                     self.present(alertController, animated: true)
                 }
             }
+        }
+    }
+    
+    func configureRefreshControl() {
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc func handleRefreshControl() {
+        fetchDailyBoxOffices()
+        
+        DispatchQueue.main.async {
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
