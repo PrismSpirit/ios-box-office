@@ -81,6 +81,8 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
             
             infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 20),
             infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
+            
+            separatorLayoutGuide.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
         ])
     }
     
