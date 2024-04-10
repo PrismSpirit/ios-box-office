@@ -59,7 +59,7 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
     private let audienceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .callout)
+        label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
     
@@ -77,9 +77,9 @@ class DailyBoxOfficeListCell: UICollectionViewListCell {
             rankStackView.widthAnchor.constraint(equalToConstant: 48),
             rankStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             rankStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
-            rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 28),
             
-            infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 16),
+            infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 20),
             infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
         ])
     }
