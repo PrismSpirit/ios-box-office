@@ -9,10 +9,12 @@ import Foundation
 
 extension FormatStyle where Self == Date.ISO8601FormatStyle {
     static var iso8601FullDate: Date.ISO8601FormatStyle {
-        return iso8601.year().month().day()
+        let formatStyle = Date.ISO8601FormatStyle(timeZone: .autoupdatingCurrent)
+        return formatStyle.year().month().day()
     }
     
     static var iso8601FullDateWithoutSeparator: Date.ISO8601FormatStyle {
-        return iso8601FullDate.dateSeparator(.omitted)
+        let formatStyle = Date.ISO8601FormatStyle(dateSeparator: .omitted, timeZone: .autoupdatingCurrent)
+        return formatStyle.year().month().day()
     }
 }
