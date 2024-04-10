@@ -27,6 +27,10 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
     
     private let networkService = NetworkService()
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return boxOffices.count
     }
