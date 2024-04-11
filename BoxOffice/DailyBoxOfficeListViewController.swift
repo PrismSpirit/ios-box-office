@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class DailyBoxOfficeListViewController: UIViewController {
     private var boxOffices: [BoxOffice] = []
     
     private var yesterdayDate: Date {
@@ -26,24 +26,6 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
     }()
     
     private let networkService = NetworkService()
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return boxOffices.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyBoxOfficeListCell.identifier, for: indexPath) as? DailyBoxOfficeListCell else {
-            return UICollectionViewCell()
-        }
-        
-        cell.updateComponents(with: boxOffices[indexPath.row])
-        
-        return cell
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,3 +105,24 @@ class DailyBoxOfficeListViewController: UIViewController, UICollectionViewDelega
     
 }
 
+extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension DailyBoxOfficeListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return boxOffices.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyBoxOfficeListCell.identifier, for: indexPath) as? DailyBoxOfficeListCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.updateComponents(with: boxOffices[indexPath.row])
+        
+        return cell
+    }
+}
