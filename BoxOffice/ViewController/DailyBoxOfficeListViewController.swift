@@ -119,6 +119,9 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     @objc func handleRefreshControl() {
+        self.boxOffices.removeAll()
+        self.applySnapshot()
+        
         fetchDailyBoxOffices {
             self.collectionView.refreshControl?.endRefreshing()
         }
