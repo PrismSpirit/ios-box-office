@@ -42,7 +42,9 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     override func viewIsAppearing(_ animated: Bool) {
-        fetchDailyBoxOffices()
+        collectionView.refreshControl?.beginRefreshing()
+        
+        fetchDailyBoxOffices(completion: nil)
     }
     
     private func configureDataSource() {
@@ -69,7 +71,7 @@ class DailyBoxOfficeListViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
-    private func fetchDailyBoxOffices() {
+    private func fetchDailyBoxOffices(completion: (() -> Void)?) {
         networkService.request(url: APIs.Kobis.BoxOffice.dailyList.url,
                                queryParameters: [
                                 "key": Environment.apiKey,
@@ -117,7 +119,9 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     @objc func handleRefreshControl() {
-        fetchDailyBoxOffices()
+        fetchDailyBoxOffices {
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
     
     func setupUI() {
