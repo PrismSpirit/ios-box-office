@@ -42,6 +42,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title3)
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -87,6 +88,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView {
             
             infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 16),
             infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
+            infoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
     
