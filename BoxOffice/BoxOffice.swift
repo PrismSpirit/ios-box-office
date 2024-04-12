@@ -5,7 +5,7 @@
 //  Created by JIWOONG on 2024/04/10.
 //
 
-struct BoxOffice {
+struct BoxOffice: Hashable {
     let rank: Int
     let rankChange: Int
     let rankingEntry: RankingEntry
