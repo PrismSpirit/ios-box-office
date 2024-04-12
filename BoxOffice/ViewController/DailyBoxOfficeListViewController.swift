@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyBoxOfficeListViewController: UIViewController {
+final class DailyBoxOfficeListViewController: UIViewController {
     enum Section {
         case main
     }
@@ -114,12 +114,12 @@ class DailyBoxOfficeListViewController: UIViewController {
         }
     }
     
-    func configureRefreshControl() {
+    private func configureRefreshControl() {
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
     
-    @objc func handleRefreshControl() {
+    @objc private func handleRefreshControl() {
         self.title = yesterdayDate.formatted(.iso8601FullDate)
         
         self.boxOffices.removeAll()
@@ -130,7 +130,7 @@ class DailyBoxOfficeListViewController: UIViewController {
         }
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         

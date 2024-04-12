@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyBoxOfficeContentView: UIView, UIContentView {
+final class DailyBoxOfficeContentView: UIView, UIContentView {
     private let rankStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
