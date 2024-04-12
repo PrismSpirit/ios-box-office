@@ -8,117 +8,12 @@
 import UIKit
 
 class DailyBoxOfficeListCell: UICollectionViewListCell {
-    static let identifier = "DailyBoxOfficeListCell"
+    var boxOffice: BoxOffice?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
+    override func updateConfiguration(using state: UICellConfigurationState) {
+        var configuration = DailyBoxOfficeConfiguration().updated(for: state)
+        configuration.boxOffice = boxOffice
+        
+        contentConfiguration = configuration
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private let rankStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    private let infoStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        return stackView
-    }()
-    
-    private let rankLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .largeTitle)
-        return label
-    }()
-    
-    private let rankingChangeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .callout)
-        return label
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title3)
-        return label
-    }()
-    
-    private let audienceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
-        return label
-    }()
-    
-    private func setupUI() {
-        rankStackView.addArrangedSubview(rankLabel)
-        rankStackView.addArrangedSubview(rankingChangeLabel)
-        
-        infoStackView.addArrangedSubview(titleLabel)
-        infoStackView.addArrangedSubview(audienceLabel)
-        
-        self.contentView.addSubview(rankStackView)
-        self.contentView.addSubview(infoStackView)
-        
-        NSLayoutConstraint.activate([
-            rankStackView.widthAnchor.constraint(equalToConstant: 56),
-            rankStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            rankStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
-            rankStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 24),
-            
-            infoStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 16),
-            infoStackView.centerYAnchor.constraint(equalTo: rankStackView.centerYAnchor),
-            
-            separatorLayoutGuide.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
-        ])
-    }
-    
-    func updateComponents(with model: BoxOffice) {
-        rankLabel.text = String(model.rank)
-    
-        switch model.rankingEntry {
-        case .old:
-            rankingChangeLabel.attributedText = convertChangeToAttributedString(amount: model.rankChange)
-        case .new:
-            rankingChangeLabel.text = "신작"
-            rankingChangeLabel.textColor = .systemPink
-        }
-        
-        titleLabel.text = model.title
-        audienceLabel.text = "오늘 \(model.todayAudience.formatted(.number)) / 총 \(model.totalAudience.formatted(.number))"
-    }
-    
-    private func convertChangeToAttributedString(amount: Int?) -> NSAttributedString {
-        guard let amount, amount != 0 else {
-            return NSAttributedString(string: "-")
-        }
-        
-        let attributedString: NSMutableAttributedString
-        
-        if amount > 0 {
-            attributedString = NSMutableAttributedString(string: "▲",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-        } else {
-            attributedString = NSMutableAttributedString(string: "▼",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue])
-        }
-        
-        attributedString.append(NSAttributedString(string: String(abs(amount))))
-        
-        return attributedString
-    }
-    
 }
