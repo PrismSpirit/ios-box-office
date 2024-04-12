@@ -32,7 +32,6 @@ class DailyBoxOfficeListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = yesterdayDate.ISO8601Format(.iso8601FullDate)
         
         collectionView.delegate = self
         configureDataSource()
@@ -42,9 +41,11 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        
         collectionView.refreshControl?.beginRefreshing()
         
-        fetchDailyBoxOffices(completion: nil)
+        handleRefreshControl()
     }
     
     private func configureDataSource() {
@@ -119,6 +120,8 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     @objc func handleRefreshControl() {
+        self.title = yesterdayDate.formatted(.iso8601FullDate)
+        
         self.boxOffices.removeAll()
         self.applySnapshot()
         
