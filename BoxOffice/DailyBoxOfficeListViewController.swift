@@ -13,8 +13,8 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     private var boxOffices: [BoxOffice] = []
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
+    private let networkService = NetworkService()
     
     private var yesterdayDate: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
@@ -30,20 +30,18 @@ class DailyBoxOfficeListViewController: UIViewController {
         return collectionView
     }()
     
-    private let networkService = NetworkService()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = yesterdayDate.ISO8601Format(.iso8601FullDate)
         
         collectionView.delegate = self
-        
-        view.addSubview(collectionView)
-        setConstraints()
         configureDataSource()
         
+        setupUI()
         configureRefreshControl()
-        
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
         fetchDailyBoxOffices()
     }
     
@@ -120,13 +118,11 @@ class DailyBoxOfficeListViewController: UIViewController {
     
     @objc func handleRefreshControl() {
         fetchDailyBoxOffices()
-        
-        DispatchQueue.main.async {
-            self.collectionView.refreshControl?.endRefreshing()
-        }
     }
     
-    func setConstraints() {
+    func setupUI() {
+        view.addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -134,7 +130,6 @@ class DailyBoxOfficeListViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
-    
 }
 
 extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
