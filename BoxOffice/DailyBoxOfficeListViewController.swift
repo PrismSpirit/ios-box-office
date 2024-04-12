@@ -125,13 +125,14 @@ class DailyBoxOfficeListViewController: UIViewController {
     }
     
     func setupUI() {
+        view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
