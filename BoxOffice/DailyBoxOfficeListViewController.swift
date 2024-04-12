@@ -8,7 +8,13 @@
 import UIKit
 
 class DailyBoxOfficeListViewController: UIViewController {
+    enum Section {
+        case main
+    }
+    
     private var boxOffices: [BoxOffice] = []
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
     
     private var yesterdayDate: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
@@ -20,7 +26,6 @@ class DailyBoxOfficeListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(DailyBoxOfficeListCell.self, forCellWithReuseIdentifier: DailyBoxOfficeListCell.identifier)
         
         return collectionView
     }()
@@ -32,12 +37,38 @@ class DailyBoxOfficeListViewController: UIViewController {
         self.title = yesterdayDate.ISO8601Format(.iso8601FullDate)
         
         collectionView.delegate = self
-        collectionView.dataSource = self
+        
         view.addSubview(collectionView)
-        configureRefreshControl()
         setConstraints()
+        configureDataSource()
+        
+        configureRefreshControl()
         
         fetchDailyBoxOffices()
+    }
+    
+    private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
+            cell.boxOffice = model
+            cell.accessories = [
+                .disclosureIndicator(displayed: .always)
+            ]
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
+            
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                for: indexPath,
+                                                                item: identifier)
+        }
+    }
+    
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, BoxOffice>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(boxOffices)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
     private func fetchDailyBoxOffices() {
@@ -56,7 +87,8 @@ class DailyBoxOfficeListViewController: UIViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                        self.applySnapshot()
+                        self.collectionView.refreshControl?.endRefreshing()
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -108,21 +140,5 @@ class DailyBoxOfficeListViewController: UIViewController {
 extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-    }
-}
-
-extension DailyBoxOfficeListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return boxOffices.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyBoxOfficeListCell.identifier, for: indexPath) as? DailyBoxOfficeListCell else {
-            return UICollectionViewCell()
-        }
-        
-        cell.updateComponents(with: boxOffices[indexPath.row])
-        
-        return cell
     }
 }
