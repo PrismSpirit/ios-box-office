@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SendableDate {
+    func sendSelectedDate(date: Date)
+}
+
 final class CalendarViewController: UIViewController {
     private let calendarView: UICalendarView = {
         let calendarView = UICalendarView()
@@ -18,6 +22,7 @@ final class CalendarViewController: UIViewController {
         return calendarView
     }()
     
+    var delegate: SendableDate?
     private let selectedDate: Date
     
     init(selectedDate: Date) {
@@ -56,6 +61,11 @@ extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
             return
         }
         
-        let date = Calendar.autoupdatingCurrent.date(from: dateComponents)
+        guard let date = Calendar.autoupdatingCurrent.date(from: dateComponents) else {
+            return
+        }
+        
+        delegate?.sendSelectedDate(date: date)
+        self.dismiss(animated: true)
     }
 }

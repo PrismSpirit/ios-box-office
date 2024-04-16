@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DailyBoxOfficeListViewController: UIViewController {
+final class DailyBoxOfficeListViewController: UIViewController, SendableDate {
     enum Section {
         case main
     }
@@ -141,7 +141,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
     
     @objc private func presentCalendar() {
         let calendarViewController = CalendarViewController(selectedDate: selectedDate)
+        calendarViewController.delegate = self
         self.present(calendarViewController, animated: true)
+    }
+    
+    func sendSelectedDate(date: Date) {
+        selectedDate = date
     }
     
     private func setupUI() {
