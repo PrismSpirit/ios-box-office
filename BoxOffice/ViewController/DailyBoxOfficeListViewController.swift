@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DailyBoxOfficeListViewController: UIViewController, SendableDate {
+final class DailyBoxOfficeListViewController: UIViewController {
     enum Section {
         case main
     }
@@ -145,10 +145,6 @@ final class DailyBoxOfficeListViewController: UIViewController, SendableDate {
         self.present(calendarViewController, animated: true)
     }
     
-    func sendSelectedDate(date: Date) {
-        selectedDate = date
-    }
-    
     private func setupUI() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
@@ -169,5 +165,11 @@ final class DailyBoxOfficeListViewController: UIViewController, SendableDate {
 extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension DailyBoxOfficeListViewController: CalendarViewDelegate {
+    func changeSelectedDate(date: Date) {
+        selectedDate = date
     }
 }
