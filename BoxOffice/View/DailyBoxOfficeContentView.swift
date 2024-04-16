@@ -102,6 +102,7 @@ final class DailyBoxOfficeContentView: UIView, UIContentView {
         
         switch boxOffice.rankingEntry {
         case .old:
+            rankingChangeLabel.textColor = .label
             rankingChangeLabel.attributedText = convertChangeToAttributedString(amount: boxOffice.rankChange)
         case .new:
             rankingChangeLabel.text = "신작"
