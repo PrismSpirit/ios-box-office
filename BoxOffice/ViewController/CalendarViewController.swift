@@ -18,16 +18,28 @@ final class CalendarViewController: UIViewController {
         return calendarView
     }()
     
+    private let selectedDate: Date
+    
+    init(selectedDate: Date) {
+        self.selectedDate = selectedDate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
+        let dateSelection = UICalendarSelectionSingleDate(delegate: self)
+        dateSelection.selectedDate = Calendar.autoupdatingCurrent.dateComponents(in: .autoupdatingCurrent, from: selectedDate) 
+        calendarView.selectionBehavior = dateSelection
+        
         setupUI()
     }
     
     private func setupUI() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(calendarView)
-        
-        let dateSelection = UICalendarSelectionSingleDate(delegate: self)
-        calendarView.selectionBehavior = dateSelection
         
         NSLayoutConstraint.activate([
             calendarView.topAnchor.constraint(equalTo: self.view.topAnchor),
