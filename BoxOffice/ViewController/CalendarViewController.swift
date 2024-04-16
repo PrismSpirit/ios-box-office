@@ -7,8 +7,7 @@
 
 import UIKit
 
-final class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
-
+final class CalendarViewController: UIViewController {
     private let calendarView: UICalendarView = {
         let calendarView = UICalendarView()
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,20 +20,12 @@ final class CalendarViewController: UIViewController, UICalendarSelectionSingleD
     
     override func viewDidLoad() {
         setupUI()
-
-    }
-    
-    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        guard let dateComponents else {
-            return
-        }
-        let date = Calendar.autoupdatingCurrent.date(from: dateComponents)
-        
     }
     
     private func setupUI() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(calendarView)
+        
         let dateSelection = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = dateSelection
         
@@ -44,5 +35,15 @@ final class CalendarViewController: UIViewController, UICalendarSelectionSingleD
             calendarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])
+    }
+}
+
+extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard let dateComponents else {
+            return
+        }
+        
+        let date = Calendar.autoupdatingCurrent.date(from: dateComponents)
     }
 }
