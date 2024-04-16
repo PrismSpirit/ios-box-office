@@ -9,6 +9,7 @@ import Foundation
 
 enum NetworkError: Error {
     case invalidURL
+    case notConnected(Error)
     case badNetwork(Error)
     case requestFailure(Error)
     case invalidStatusCode
@@ -44,6 +45,8 @@ final class NetworkService {
             if let error {
                 let nsError = error as NSError
                 switch nsError.code {
+                case NSURLErrorNotConnectedToInternet:
+                    completion(.failure(.notConnected(error)))
                 case NSURLErrorTimedOut:
                     completion(.failure(.badNetwork(error)))
                 default:

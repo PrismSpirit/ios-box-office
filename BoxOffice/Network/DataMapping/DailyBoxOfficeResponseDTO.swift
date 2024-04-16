@@ -59,3 +59,14 @@ extension DailyBoxOfficeResponseDTO {
         let screenCount, showCount: String
     }
 }
+
+extension DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO {
+    func toModel() -> BoxOffice {
+        return .init(rank: Int(rank) ?? .zero,
+                     rankChange: Int(rankChange) ?? .zero,
+                     rankingEntry: rankingEntry == .old ? .old : .new,
+                     title: movieName,
+                     todayAudience: Int(audienceCount) ?? .zero,
+                     totalAudience: Int(audienceAccmulation) ?? .zero)
+    }
+}
