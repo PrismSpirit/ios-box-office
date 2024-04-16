@@ -16,18 +16,9 @@ final class DailyBoxOfficeListViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
     private let networkService: NetworkService
     
-    private var selectedDate: Date = .now {
+    private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now {
         didSet {
-            self.title = selectedDate.formatted(.iso8601FullDate)
-            
-            collectionView.refreshControl?.beginRefreshing()
-            
-            self.boxOffices.removeAll()
-            self.applySnapshot()
-            
-            fetchDailyBoxOffices {
-                self.collectionView.refreshControl?.endRefreshing()
-            }
+            handleRefreshControl()
         }
     }
     
@@ -63,11 +54,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
         
-        guard let yesterdayDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) else {
-            return
-        }
-        
-        selectedDate = yesterdayDate
+        handleRefreshControl()
     }
     
     private func configureDataSource() {
@@ -132,11 +119,16 @@ final class DailyBoxOfficeListViewController: UIViewController {
     }
     
     @objc private func handleRefreshControl() {
-        guard let yesterdayDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) else {
-            return
-        }
+        self.title = selectedDate.formatted(.iso8601FullDate)
         
-        selectedDate = yesterdayDate
+        collectionView.refreshControl?.beginRefreshing()
+        
+        self.boxOffices.removeAll()
+        self.applySnapshot()
+        
+        fetchDailyBoxOffices {
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
     
     @objc private func presentCalendar() {
