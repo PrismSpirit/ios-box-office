@@ -62,11 +62,11 @@ extension DailyBoxOfficeResponseDTO {
 
 extension DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO {
     func toModel() -> BoxOffice {
-        return .init(rank: Int(rank)!,
-                     rankChange: Int(rankChange)!,
+        return .init(rank: Int(rank) ?? .zero,
+                     rankChange: Int(rankChange) ?? .zero,
                      rankingEntry: rankingEntry == .old ? .old : .new,
                      title: movieName,
-                     todayAudience: Int(audienceCount)!,
-                     totalAudience: Int(audienceAccmulation)!)
+                     todayAudience: Int(audienceCount) ?? .zero,
+                     totalAudience: Int(audienceAccmulation) ?? .zero)
     }
 }

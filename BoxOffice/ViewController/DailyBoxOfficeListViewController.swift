@@ -17,7 +17,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
     private let networkService: NetworkService
     
     private var yesterdayDate: Date {
-        return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        return Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? .now
     }
     
     private let collectionView: UICollectionView = {
