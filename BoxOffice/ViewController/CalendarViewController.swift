@@ -18,7 +18,7 @@ final class CalendarViewController: UIViewController {
         calendarView.calendar = .autoupdatingCurrent
         calendarView.locale = .autoupdatingCurrent
         calendarView.timeZone = .autoupdatingCurrent
-        calendarView.availableDateRange = DateInterval(start: Date(timeIntervalSince1970: 0), end: Date())
+        calendarView.availableDateRange = DateInterval(start: Date(timeIntervalSince1970: .zero), end: Date())
         return calendarView
     }()
     
