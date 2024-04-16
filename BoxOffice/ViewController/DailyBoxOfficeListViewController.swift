@@ -78,7 +78,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, BoxOffice>()
         snapshot.appendSections([.main])
         snapshot.appendItems(boxOffices)
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     private func fetchDailyBoxOffices(completion: (() -> Void)?) {
