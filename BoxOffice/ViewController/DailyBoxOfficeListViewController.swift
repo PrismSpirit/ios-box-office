@@ -129,9 +129,18 @@ final class DailyBoxOfficeListViewController: UIViewController {
         }
     }
     
+    @objc private func presentCalendar() {
+        let calendarViewController = CalendarViewController()
+        self.present(calendarViewController, animated: true)
+    }
+    
     private func setupUI() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(collectionView)
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(collectionView)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "날짜선택",
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(presentCalendar))
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
