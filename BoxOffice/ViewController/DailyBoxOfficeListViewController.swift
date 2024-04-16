@@ -14,7 +14,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
     
     private var boxOffices: [BoxOffice] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
-    private let networkService = NetworkService()
+    private let networkService: NetworkService
     
     private var yesterdayDate: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
@@ -29,6 +29,15 @@ final class DailyBoxOfficeListViewController: UIViewController {
         
         return collectionView
     }()
+    
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
