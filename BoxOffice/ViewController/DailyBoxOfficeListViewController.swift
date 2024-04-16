@@ -93,22 +93,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Data Decoding Error",
-                                                                message: error.localizedDescription,
-                                                                preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction(title: "Confirm", style: .default))
-                        
-                        self.present(alertController, animated: true)
+                        self.present(AlertFactory.alert(for: error), animated: true)
                     }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Network Error",
-                                                            message: error.localizedDescription,
-                                                            preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Confirm", style: .default))
-                    
-                    self.present(alertController, animated: true)
+                    self.present(AlertFactory.alert(for: error), animated: true)
                 }
             }
         }
