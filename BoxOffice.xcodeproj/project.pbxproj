@@ -22,6 +22,7 @@
 		C40D92642BC8F1E600417DB5 /* DailyBoxOfficeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40D92632BC8F1E600417DB5 /* DailyBoxOfficeContentView.swift */; };
 		C40D92662BC8F26D00417DB5 /* DailyBoxOfficeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40D92652BC8F26D00417DB5 /* DailyBoxOfficeConfiguration.swift */; };
 		C41B861E2BCD765400182324 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41B861D2BCD765400182324 /* AlertFactory.swift */; };
+		C41B86222BCE9AA400182324 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41B86212BCE9AA400182324 /* CalendarViewController.swift */; };
 		C46DB6E42BC0EC87000D6A41 /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DB6E32BC0EC87000D6A41 /* APIs.swift */; };
 		C46DB6EE2BC621F5000D6A41 /* DailyBoxOfficeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DB6ED2BC621F5000D6A41 /* DailyBoxOfficeListCell.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		C40D92632BC8F1E600417DB5 /* DailyBoxOfficeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBoxOfficeContentView.swift; sourceTree = "<group>"; };
 		C40D92652BC8F26D00417DB5 /* DailyBoxOfficeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBoxOfficeConfiguration.swift; sourceTree = "<group>"; };
 		C41B861D2BCD765400182324 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		C41B86212BCE9AA400182324 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		C46DB6E32BC0EC87000D6A41 /* APIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
 		C46DB6ED2BC621F5000D6A41 /* DailyBoxOfficeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBoxOfficeListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				63DF20F22970E1A0005DF7D1 /* DailyBoxOfficeListViewController.swift */,
+				C41B86212BCE9AA400182324 /* CalendarViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C41B86222BCE9AA400182324 /* CalendarViewController.swift in Sources */,
 				C40D92642BC8F1E600417DB5 /* DailyBoxOfficeContentView.swift in Sources */,
 				C40AB8642BBFC923001BCAC7 /* Environment.swift in Sources */,
 				63DF20F32970E1A0005DF7D1 /* DailyBoxOfficeListViewController.swift in Sources */,
