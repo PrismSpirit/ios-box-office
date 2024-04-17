@@ -50,7 +50,9 @@ final class DailyBoxOfficeListViewController: UIViewController {
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
         
-        handleRefreshControl()
+        if boxOffices.isEmpty {
+            handleRefreshControl()
+        }
     }
     
     private func configureDataSource() {
