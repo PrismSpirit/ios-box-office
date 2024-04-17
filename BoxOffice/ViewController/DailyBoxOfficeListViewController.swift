@@ -16,11 +16,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
     private let networkService: NetworkService
     
-    private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now {
-        didSet {
-            handleRefreshControl()
-        }
-    }
+    private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now
     
     private let collectionView: UICollectionView = {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -163,5 +159,6 @@ extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
 extension DailyBoxOfficeListViewController: CalendarViewController.Delegate {
     func changeSelectedDate(date: Date) {
         selectedDate = date
+        handleRefreshControl()
     }
 }
