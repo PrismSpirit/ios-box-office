@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol CalendarViewDelegate: AnyObject {
-    func changeSelectedDate(date: Date)
-}
-
 final class CalendarViewController: UIViewController {
+    protocol Delegate: AnyObject {
+        func changeSelectedDate(date: Date)
+    }
+    
     private let calendarView: UICalendarView = {
         let calendarView = UICalendarView()
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ final class CalendarViewController: UIViewController {
         return calendarView
     }()
     
-    weak var delegate: CalendarViewDelegate?
+    weak var delegate: Delegate?
     private let selectedDate: Date
     
     init(selectedDate: Date) {

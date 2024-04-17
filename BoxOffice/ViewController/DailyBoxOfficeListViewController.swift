@@ -160,7 +160,7 @@ extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
     }
 }
 
-extension DailyBoxOfficeListViewController: CalendarViewDelegate {
+extension DailyBoxOfficeListViewController: CalendarViewController.Delegate {
     func changeSelectedDate(date: Date) {
         selectedDate = date
     }
