@@ -19,17 +19,3 @@ struct BoxOffice: Hashable {
         case new
     }
 }
-
-struct MovieDetail: Hashable {
-    let movieName: String
-    let directors: [String]
-    let productionYear: Int
-    let openDate: String
-    let showTime: Int
-    let watchGrade: [String]
-    let nations: [String]
-    let genres: [String]
-    let actors: [String]
-    
-    let imageURL: String
-}
