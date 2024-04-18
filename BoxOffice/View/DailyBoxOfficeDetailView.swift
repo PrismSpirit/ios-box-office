@@ -327,14 +327,13 @@ class DailyBoxOfficeDetailView: UIScrollView {
     }
     
     func updateMovieDetailContent(data: MovieDetail) {
-        directorsLabel.text = data.directors.joined(separator: ", ")
+        directorsLabel.text = data.directors
         productionYearLabel.text = String(data.productionYear)
         openDateLabel.text = data.openDate
         runningTimeLabel.text = String(data.showTime)
-        watchGradeLabel.text = data.watchGrade.joined(separator: ", ")
-        nationsLabel.text = data.nations.joined(separator: ", ")
-        genreLabel.text = data.genres.joined(separator: ", ")
-        actorsLabel.text = data.actors.joined(separator: ", ")
-        
+        watchGradeLabel.text = data.watchGrade
+        nationsLabel.text = data.nations
+        genreLabel.text = data.genres
+        actorsLabel.text = data.actors
     }
 }

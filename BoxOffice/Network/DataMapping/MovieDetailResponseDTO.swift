@@ -5,6 +5,8 @@
 //  Created by Jaehun Lee on 4/5/24.
 //
 
+import Foundation
+
 struct MovieDetailResponseDTO: Decodable {
     let movieInfoResult: MovieInfoResultDTO
 }
@@ -94,3 +96,16 @@ extension MovieDetailResponseDTO {
     }
 }
 
+extension MovieDetailResponseDTO.MovieInfoDTO {
+    func toModel() -> MovieDetail {
+        return .init(movieName: movieName,
+                     directors: directors.map { $0.name }.joined(separator: ", "),
+                     productionYear: Int(productionYear) ?? .zero,
+                     openDate: ((try? Date.ISO8601FormatStyle.iso8601FullDateWithoutSeparator.parse(openDate)) ?? Date()).formatted(.iso8601FullDate),
+                     showTime: Int(showTime) ?? .zero,
+                     watchGrade: audits.map { $0.watchGradeName }.joined(separator: ", "),
+                     nations: nations.map { $0.nationName }.joined(separator: ", "),
+                     genres: genres.map { $0.genreName }.joined(separator: ", "),
+                     actors: actors.map { $0.actorName }.joined(separator: ", "))
+    }
+}
