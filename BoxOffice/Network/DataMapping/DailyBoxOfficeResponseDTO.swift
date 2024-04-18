@@ -67,6 +67,7 @@ extension DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO {
                      rankingEntry: rankingEntry == .old ? .old : .new,
                      title: movieName,
                      todayAudience: Int(audienceCount) ?? .zero,
-                     totalAudience: Int(audienceAccmulation) ?? .zero)
+                     totalAudience: Int(audienceAccmulation) ?? .zero,
+                     movieCode: movieCode)
     }
 }

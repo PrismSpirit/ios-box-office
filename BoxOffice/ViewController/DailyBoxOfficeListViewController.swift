@@ -154,7 +154,10 @@ final class DailyBoxOfficeListViewController: UIViewController {
 
 extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dailyBoxOfficeDetailViewController = DailyBoxOfficeDetailViewController(selectedMovieCode: boxOffices[indexPath.row].movieCode, selectedMovieName: boxOffices[indexPath.row].title)
+        
         collectionView.deselectItem(at: indexPath, animated: true)
+        navigationController?.pushViewController(dailyBoxOfficeDetailViewController, animated: true)
     }
 }
 
