@@ -260,8 +260,7 @@ class DailyBoxOfficeDetailView: UIScrollView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -269,6 +268,8 @@ class DailyBoxOfficeDetailView: UIScrollView {
     }
     
     func setupUI() {
+        self.backgroundColor = .systemBackground
+        
         directorsStackView.addArrangedSubview(directorsTitleLabel)
         directorsStackView.addArrangedSubview(directorsLabel)
         productionStackView.addArrangedSubview(productionYearTitleLabel)
@@ -336,5 +337,4 @@ class DailyBoxOfficeDetailView: UIScrollView {
         actorsLabel.text = data.actors.joined(separator: ", ")
         
     }
-    
 }
