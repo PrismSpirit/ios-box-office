@@ -1,5 +1,5 @@
 //
-//  MovieDetailScrollView.swift
+//  DailyBoxOfficeDetailView.swift
 //  BoxOffice
 //
 //  Created by Prism, Gray on 4/17/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieDetailScrollView: UIScrollView {
+class DailyBoxOfficeDetailView: UIScrollView {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
