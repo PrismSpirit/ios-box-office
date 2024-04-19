@@ -42,6 +42,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -59,6 +60,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -76,6 +78,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -93,6 +96,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -110,6 +114,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -127,6 +132,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -144,6 +150,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -161,6 +168,7 @@ class DailyBoxOfficeDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -196,6 +204,8 @@ class DailyBoxOfficeDetailView: UIView {
         scrollView.addSubview(contentView)
         self.addSubview(scrollView)
         
+        productionYearConstantLabel.setContentHuggingPriority(.required, for: .horizontal)
+        
         directorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         productionYearVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         openDateVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -207,11 +217,10 @@ class DailyBoxOfficeDetailView: UIView {
         
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             
             directorsConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
-            
             openDateConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
             runningTimeConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
             watchGradeConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
@@ -219,13 +228,13 @@ class DailyBoxOfficeDetailView: UIView {
             genreConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
             actorsConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
             
-            directorsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            openDateConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            runningTimeConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            watchGradeConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            nationsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            genreConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
-            actorsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            directorsConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            openDateConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            runningTimeConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            watchGradeConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            nationsConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            genreConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
+            actorsConstantLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.leadingAnchor),
             
             productionYearConstantLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             
@@ -246,9 +255,9 @@ class DailyBoxOfficeDetailView: UIView {
             nationsVariableLabel.topAnchor.constraint(equalTo: watchGradeVariableLabel.bottomAnchor, constant: 8),
             genreVariableLabel.topAnchor.constraint(equalTo: nationsVariableLabel.bottomAnchor, constant: 8),
             actorsVariableLabel.topAnchor.constraint(equalTo: genreVariableLabel.bottomAnchor, constant: 8),
-            contentView.bottomAnchor.constraint(equalTo: actorsVariableLabel.bottomAnchor),
+            contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: actorsVariableLabel.bottomAnchor),
             
-            productionYearVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            directorsVariableLabel.leadingAnchor.constraint(equalTo: productionYearVariableLabel.leadingAnchor),
             openDateVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
             runningTimeVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
             watchGradeVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
@@ -256,19 +265,23 @@ class DailyBoxOfficeDetailView: UIView {
             genreVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
             actorsVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
             
-            directorsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            productionYearVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            openDateVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            runningTimeVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            watchGradeVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            nationsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            genreVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            actorsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            
             productionYearVariableLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.trailingAnchor, constant: 8),
+            
+            productionYearVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            openDateVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            runningTimeVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            watchGradeVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            nationsVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            genreVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            actorsVariableLabel.trailingAnchor.constraint(equalTo: directorsVariableLabel.trailingAnchor),
+            
+            productionYearVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             
             contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            
             contentView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
             
