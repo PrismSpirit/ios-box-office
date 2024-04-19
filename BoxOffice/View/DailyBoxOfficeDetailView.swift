@@ -7,255 +7,161 @@
 
 import UIKit
 
-class DailyBoxOfficeDetailView: UIScrollView {
-    private var imageView: UIImageView = {
+class DailyBoxOfficeDetailView: UIView {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isScrollEnabled = true
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        
         return imageView
     }()
     
-    private let directorsTitleLabel: UILabel = {
+    private let directorsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "감독"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let directorsLabel: UILabel = {
+    private let directorsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let directorsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let productionYearTitleLabel: UILabel = {
+    private let productionYearConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "제작년도"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let productionYearLabel: UILabel = {
+    private let productionYearVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let productionStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let openDateTitleLabel: UILabel = {
+    private let openDateConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "개봉일"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let openDateLabel: UILabel = {
+    private let openDateVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let openDateStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let runningTimeTitleLabel: UILabel = {
+    private let runningTimeConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "상영시간"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let runningTimeLabel: UILabel = {
+    private let runningTimeVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let runningTimeStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let watchGradeTitleLabel: UILabel = {
+    private let watchGradeConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "관람등급"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let watchGradeLabel: UILabel = {
+    private let watchGradeVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let watchGradeStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let nationsTitleLabel: UILabel = {
+    private let nationsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "제작국가"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let nationsLabel: UILabel = {
+    private let nationsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let nationsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let genreTitleLabel: UILabel = {
+    private let genreConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "장르"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let genreLabel: UILabel = {
+    private let genreVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
     }()
     
-    private let genreStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-    
-    private let actorsTitleLabel: UILabel = {
+    private let actorsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배우"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        
         return label
     }()
     
-    private let actorsLabel: UILabel = {
+    private let actorsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
-        
         return label
-    }()
-    
-    private let actorsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        
-        return stackView
-    }()
-
-    private let contentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.distribution = .fill
-        
-        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -270,55 +176,106 @@ class DailyBoxOfficeDetailView: UIScrollView {
     func setupUI() {
         self.backgroundColor = .systemBackground
         
-        directorsStackView.addArrangedSubview(directorsTitleLabel)
-        directorsStackView.addArrangedSubview(directorsLabel)
-        productionStackView.addArrangedSubview(productionYearTitleLabel)
-        productionStackView.addArrangedSubview(productionYearLabel)
-        openDateStackView.addArrangedSubview(openDateTitleLabel)
-        openDateStackView.addArrangedSubview(openDateLabel)
-        runningTimeStackView.addArrangedSubview(runningTimeTitleLabel)
-        runningTimeStackView.addArrangedSubview(runningTimeLabel)
-        watchGradeStackView.addArrangedSubview(watchGradeTitleLabel)
-        watchGradeStackView.addArrangedSubview(watchGradeLabel)
-        nationsStackView.addArrangedSubview(nationsTitleLabel)
-        nationsStackView.addArrangedSubview(nationsLabel)
-        genreStackView.addArrangedSubview(genreTitleLabel)
-        genreStackView.addArrangedSubview(genreLabel)
-        actorsStackView.addArrangedSubview(actorsTitleLabel)
-        actorsStackView.addArrangedSubview(actorsLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(directorsConstantLabel)
+        contentView.addSubview(directorsVariableLabel)
+        contentView.addSubview(productionYearConstantLabel)
+        contentView.addSubview(productionYearVariableLabel)
+        contentView.addSubview(openDateConstantLabel)
+        contentView.addSubview(openDateVariableLabel)
+        contentView.addSubview(runningTimeConstantLabel)
+        contentView.addSubview(runningTimeVariableLabel)
+        contentView.addSubview(watchGradeConstantLabel)
+        contentView.addSubview(watchGradeVariableLabel)
+        contentView.addSubview(nationsConstantLabel)
+        contentView.addSubview(nationsVariableLabel)
+        contentView.addSubview(genreConstantLabel)
+        contentView.addSubview(genreVariableLabel)
+        contentView.addSubview(actorsConstantLabel)
+        contentView.addSubview(actorsVariableLabel)
+        scrollView.addSubview(contentView)
+        self.addSubview(scrollView)
         
-        contentStackView.addArrangedSubview(directorsStackView)
-        contentStackView.addArrangedSubview(productionStackView)
-        contentStackView.addArrangedSubview(openDateStackView)
-        contentStackView.addArrangedSubview(runningTimeStackView)
-        contentStackView.addArrangedSubview(watchGradeStackView)
-        contentStackView.addArrangedSubview(nationsStackView)
-        contentStackView.addArrangedSubview(genreStackView)
-        contentStackView.addArrangedSubview(actorsStackView)
-        
-        self.addSubview(imageView)
-        self.addSubview(contentStackView)
+        directorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        productionYearVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        openDateVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        runningTimeVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        watchGradeVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        nationsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        genreVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        actorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            imageView.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            directorsTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            productionYearTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            openDateTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            runningTimeTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            watchGradeTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            nationsTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            genreTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            actorsTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
+            directorsConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
             
-            contentStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            contentStackView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: contentLayoutGuide.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: frameLayoutGuide.widthAnchor)
+            openDateConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            runningTimeConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            watchGradeConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            nationsConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            genreConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            actorsConstantLabel.widthAnchor.constraint(equalTo: productionYearConstantLabel.widthAnchor),
+            
+            directorsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            openDateConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            runningTimeConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            watchGradeConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            nationsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            genreConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            actorsConstantLabel.centerXAnchor.constraint(equalTo: productionYearConstantLabel.centerXAnchor),
+            
+            productionYearConstantLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            
+            directorsConstantLabel.centerYAnchor.constraint(equalTo: directorsVariableLabel.centerYAnchor),
+            productionYearConstantLabel.centerYAnchor.constraint(equalTo: productionYearVariableLabel.centerYAnchor),
+            openDateConstantLabel.centerYAnchor.constraint(equalTo: openDateVariableLabel.centerYAnchor),
+            runningTimeConstantLabel.centerYAnchor.constraint(equalTo: runningTimeVariableLabel.centerYAnchor),
+            watchGradeConstantLabel.centerYAnchor.constraint(equalTo: watchGradeVariableLabel.centerYAnchor),
+            nationsConstantLabel.centerYAnchor.constraint(equalTo: nationsVariableLabel.centerYAnchor),
+            genreConstantLabel.centerYAnchor.constraint(equalTo: genreVariableLabel.centerYAnchor),
+            actorsConstantLabel.centerYAnchor.constraint(equalTo: actorsVariableLabel.centerYAnchor),
+            
+            directorsVariableLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            productionYearVariableLabel.topAnchor.constraint(equalTo: directorsVariableLabel.bottomAnchor, constant: 8),
+            openDateVariableLabel.topAnchor.constraint(equalTo: productionYearVariableLabel.bottomAnchor, constant: 8),
+            runningTimeVariableLabel.topAnchor.constraint(equalTo: openDateVariableLabel.bottomAnchor, constant: 8),
+            watchGradeVariableLabel.topAnchor.constraint(equalTo: runningTimeVariableLabel.bottomAnchor, constant: 8),
+            nationsVariableLabel.topAnchor.constraint(equalTo: watchGradeVariableLabel.bottomAnchor, constant: 8),
+            genreVariableLabel.topAnchor.constraint(equalTo: nationsVariableLabel.bottomAnchor, constant: 8),
+            actorsVariableLabel.topAnchor.constraint(equalTo: genreVariableLabel.bottomAnchor, constant: 8),
+            contentView.bottomAnchor.constraint(equalTo: actorsVariableLabel.bottomAnchor),
+            
+            productionYearVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            openDateVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            runningTimeVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            watchGradeVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            nationsVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            genreVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            actorsVariableLabel.leadingAnchor.constraint(equalTo: directorsVariableLabel.leadingAnchor),
+            
+            directorsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            productionYearVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            openDateVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            runningTimeVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            watchGradeVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            nationsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            genreVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            actorsVariableLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            
+            productionYearVariableLabel.leadingAnchor.constraint(equalTo: productionYearConstantLabel.trailingAnchor, constant: 8),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
@@ -327,13 +284,13 @@ class DailyBoxOfficeDetailView: UIScrollView {
     }
     
     func updateMovieDetailContent(data: MovieDetail) {
-        directorsLabel.text = data.directors
-        productionYearLabel.text = String(data.productionYear)
-        openDateLabel.text = data.openDate
-        runningTimeLabel.text = String(data.showTime)
-        watchGradeLabel.text = data.watchGrade
-        nationsLabel.text = data.nations
-        genreLabel.text = data.genres
-        actorsLabel.text = data.actors
+        directorsVariableLabel.text = data.directors
+        productionYearVariableLabel.text = String(data.productionYear)
+        openDateVariableLabel.text = data.openDate
+        runningTimeVariableLabel.text = String(data.showTime)
+        watchGradeVariableLabel.text = data.watchGrade
+        nationsVariableLabel.text = data.nations
+        genreVariableLabel.text = data.genres
+        actorsVariableLabel.text = data.actors
     }
 }
