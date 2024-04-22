@@ -7,22 +7,25 @@
 
 import UIKit
 
+enum ScreenMode {
+    case list
+    case grid
+}
+
 final class DailyBoxOfficeListViewController: UIViewController {
     enum Section {
         case main
     }
     
+    private var screenMode: ScreenMode = .list
     private var boxOffices: [BoxOffice] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
     private let networkService: NetworkService
     
     private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now
     
-    private let collectionView: UICollectionView = {
-        let config = UICollectionLayoutListConfiguration(appearance: .plain)
-        let layout = UICollectionViewCompositionalLayout.list(using: config)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getLayout(of: .list))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -70,6 +73,66 @@ final class DailyBoxOfficeListViewController: UIViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: identifier)
+        }
+    }
+    
+    private func getLayout(of layout: ScreenMode) -> UICollectionViewCompositionalLayout {
+        switch layout {
+        case .list:
+            let config = UICollectionLayoutListConfiguration(appearance: .plain)
+            return UICollectionViewCompositionalLayout.list(using: config)
+        case .grid:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                                 heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalWidth(0.5))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                             subitems: [item])
+            group.interItemSpacing = .fixed(-15)
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = -15
+            return UICollectionViewCompositionalLayout(section: section)
+        }
+    }
+    
+    private func changeDataSource(from layout: ScreenMode) {
+        switch layout {
+        case .list:
+            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeGridCell, BoxOffice> { cell, indexPath, model in
+                cell.boxOffice = model
+                cell.layer.borderWidth = 3
+                cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
+            }
+            
+            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
+                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
+                
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                    for: indexPath,
+                                                                    item: identifier)
+            }
+            collectionView.setCollectionViewLayout(getLayout(of: .grid), animated: false)
+            screenMode = .grid
+        case .grid:
+            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
+                cell.boxOffice = model
+                cell.accessories = [
+                    .disclosureIndicator(displayed: .always)
+                ]
+            }
+            
+            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
+                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
+                
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                    for: indexPath,
+                                                                    item: identifier)
+            }
+            collectionView.setCollectionViewLayout(getLayout(of: .list), animated: false)
+            screenMode = .list
         }
     }
     
@@ -147,7 +210,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
     
     @objc private func showScreenModeAlert() {
         let alertController = UIAlertController(title: "화면모드변경", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "리스트", style: .default, handler: nil))
+        let alertAction = UIAlertAction(title: screenMode == .list ? "아이콘" : "리스트", style: .default) { _ in
+            self.changeDataSource(from: self.screenMode)
+            self.applySnapshot()
+        }
+        
+        alertController.addAction(alertAction)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alertController, animated: true)
     }

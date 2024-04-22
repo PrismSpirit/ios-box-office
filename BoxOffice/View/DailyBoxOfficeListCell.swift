@@ -11,7 +11,18 @@ final class DailyBoxOfficeListCell: UICollectionViewListCell {
     var boxOffice: BoxOffice?
     
     override func updateConfiguration(using state: UICellConfigurationState) {
-        var configuration = DailyBoxOfficeConfiguration().updated(for: state)
+        var configuration = DailyBoxOfficeListConfiguration().updated(for: state)
+        configuration.boxOffice = boxOffice
+        
+        contentConfiguration = configuration
+    }
+}
+
+final class DailyBoxOfficeGridCell: UICollectionViewListCell {
+    var boxOffice: BoxOffice?
+    
+    override func updateConfiguration(using state: UICellConfigurationState) {
+        var configuration = DailyBoxOfficeGridConfiguration().updated(for: state)
         configuration.boxOffice = boxOffice
         
         contentConfiguration = configuration
