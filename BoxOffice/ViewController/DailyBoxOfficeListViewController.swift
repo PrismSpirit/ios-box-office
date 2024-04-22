@@ -146,7 +146,10 @@ final class DailyBoxOfficeListViewController: UIViewController {
     }
     
     @objc private func showScreenModeAlert() {
-        
+        let alertController = UIAlertController(title: "화면모드변경", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "리스트", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
+        self.present(alertController, animated: true)
     }
     
     private func setupUI() {
