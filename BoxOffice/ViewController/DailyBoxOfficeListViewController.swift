@@ -42,6 +42,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         
         collectionView.delegate = self
         configureDataSource()
+        setupToolBar()
         
         setupUI()
         configureRefreshControl()
@@ -133,6 +134,19 @@ final class DailyBoxOfficeListViewController: UIViewController {
         let calendarViewController = CalendarViewController(selectedDate: selectedDate)
         calendarViewController.delegate = self
         self.present(calendarViewController, animated: true)
+    }
+    
+    private func setupToolBar() {
+        navigationController?.isToolbarHidden = false
+        
+        let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경", style: .plain, target: self, action: #selector(showScreenModeAlert))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barItems = [flexibleSpace, screenmodeButton, flexibleSpace]
+        self.setToolbarItems(barItems, animated: true)
+    }
+    
+    @objc private func showScreenModeAlert() {
+        
     }
     
     private func setupUI() {
