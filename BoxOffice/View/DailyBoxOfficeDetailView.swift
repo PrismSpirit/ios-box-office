@@ -247,6 +247,15 @@ class DailyBoxOfficeDetailView: UIView {
             genreConstantLabel.centerYAnchor.constraint(equalTo: genreVariableLabel.centerYAnchor),
             actorsConstantLabel.centerYAnchor.constraint(equalTo: actorsVariableLabel.centerYAnchor),
             
+            directorsVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: directorsConstantLabel.heightAnchor),
+            productionYearVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: productionYearConstantLabel.heightAnchor),
+            openDateVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: openDateConstantLabel.heightAnchor),
+            runningTimeVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: runningTimeConstantLabel.heightAnchor),
+            watchGradeVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: watchGradeConstantLabel.heightAnchor),
+            nationsVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: nationsConstantLabel.heightAnchor),
+            genreVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: genreConstantLabel.heightAnchor),
+            actorsVariableLabel.heightAnchor.constraint(greaterThanOrEqualTo: actorsConstantLabel.heightAnchor),
+            
             directorsVariableLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             productionYearVariableLabel.topAnchor.constraint(equalTo: directorsVariableLabel.bottomAnchor, constant: 8),
             openDateVariableLabel.topAnchor.constraint(equalTo: productionYearVariableLabel.bottomAnchor, constant: 8),
