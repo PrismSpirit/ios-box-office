@@ -37,6 +37,7 @@ class DailyBoxOfficeDetailViewController: UIViewController {
     
     private func fetchDailyBoxOfficeDetail() {
         networkService.request(url: APIs.Kobis.Movie.info.url,
+                               requestHeaders: nil,
                                queryParameters: ["key": Environment.kobisApiKey,
                                                  "movieCd": movieCode]) { result in
             switch result {

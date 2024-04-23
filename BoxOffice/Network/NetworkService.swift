@@ -25,15 +25,20 @@ final class NetworkService {
         self.session = session
     }
     
-    func request(url: URL, queryParameters: [String: String], completion: @escaping CompletionHandler) {
+    func request(url: URL,
+                 requestHeaders: [String: String]?,
+                 queryParameters: [String: String]?,
+                 completion: @escaping CompletionHandler) {
         guard var components = URLComponents(url: url,
                                              resolvingAgainstBaseURL: false) else {
             completion(.failure(.invalidURL))
             return
         }
         
-        components.queryItems = queryParameters.map {
-            URLQueryItem(name: $0.key, value: $0.value)
+        if let queryParameters {
+            components.queryItems = queryParameters.map {
+                URLQueryItem(name: $0.key, value: $0.value)
+            }
         }
 
         guard let url = components.url else {
@@ -41,7 +46,13 @@ final class NetworkService {
             return
         }
         
-        let task = session.dataTask(with: url) { data, response, error in
+        var urlRequest = URLRequest(url: url)
+        
+        if let requestHeaders {
+            urlRequest.allHTTPHeaderFields = requestHeaders
+        }
+        
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             if let error {
                 let nsError = error as NSError
                 switch nsError.code {
