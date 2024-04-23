@@ -32,6 +32,10 @@ class DailyBoxOfficeDetailViewController: UIViewController {
         fetchPoster(of: movieName)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -241,6 +241,7 @@ extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
         let dailyBoxOfficeDetailViewController = DailyBoxOfficeDetailViewController(selectedMovieCode: boxOffices[indexPath.row].movieCode, selectedMovieName: boxOffices[indexPath.row].title)
         
         collectionView.deselectItem(at: indexPath, animated: true)
+        navigationController?.isToolbarHidden = true
         navigationController?.pushViewController(dailyBoxOfficeDetailViewController, animated: true)
     }
 }
