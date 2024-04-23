@@ -293,6 +293,12 @@ class DailyBoxOfficeDetailView: UIView {
     }
     
     func updateImageContent(image: UIImage) {
+        let ratio = image.size.height / image.size.width
+        
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: ratio),
+        ])
+        
         imageView.image = image
     }
     
