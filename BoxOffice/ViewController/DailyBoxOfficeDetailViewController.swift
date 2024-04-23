@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyBoxOfficeDetailViewController: UIViewController {    
+final class DailyBoxOfficeDetailViewController: UIViewController {
     var networkService = NetworkService()
     var movieName: String
     var movieCode: String
@@ -80,11 +80,15 @@ class DailyBoxOfficeDetailViewController: UIViewController {
                 do {
                     documents = try JSONDecoder().decode(ImageSearchResponseDTO.self, from: data).documents.map { $0.toModel() }
                 } catch {
-                    self.present(AlertFactory.alert(for: error), animated: true)
+                    DispatchQueue.main.async {
+                        self.present(AlertFactory.alert(for: error), animated: true)
+                    }
                 }
                 
                 if documents.isEmpty {
-                    
+                    DispatchQueue.main.async {
+                        self.fetchDefaultImage()
+                    }
                 } else {
                     if let document = documents.first,
                        let imageURL = URL(string: document.imageURL) {
@@ -92,7 +96,10 @@ class DailyBoxOfficeDetailViewController: UIViewController {
                     }
                 }
             case .failure(let error):
-                self.present(AlertFactory.alert(for: error), animated: true)
+                DispatchQueue.main.async {
+                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.fetchDefaultImage()
+                }
             }
         }
     }
@@ -107,8 +114,18 @@ class DailyBoxOfficeDetailViewController: UIViewController {
                     (self.view as! DailyBoxOfficeDetailView).updateImageContent(image: UIImage(data: data)!)
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.fetchDefaultImage()
+                }
             }
         }
+    }
+    
+    private func fetchDefaultImage() {
+        guard let image = UIImage(named: "not_found_image") else {
+            return
+        }
+        (self.view as! DailyBoxOfficeDetailView).updateImageContent(image: image)
     }
 }
