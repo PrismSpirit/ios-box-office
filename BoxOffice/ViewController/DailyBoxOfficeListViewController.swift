@@ -103,7 +103,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         case .list:
             let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeGridCell, BoxOffice> { cell, indexPath, model in
                 cell.boxOffice = model
-                cell.layer.borderWidth = 3
+                cell.layer.borderWidth = 2
                 cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
             }
             
