@@ -26,10 +26,19 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let dailyBoxOfficeDetailView = self.view as? DailyBoxOfficeDetailView else {
+            return
+        }
+        
         self.title = movieName
         
-        fetchDailyBoxOfficeDetail()
-        fetchPoster(of: movieName)
+        fetchDailyBoxOfficeDetail(view: dailyBoxOfficeDetailView) {
+            DispatchQueue.main.async {
+                dailyBoxOfficeDetailView.finishedLoadData()
+            }
+        }
+        
+        fetchPoster(of: movieName, view: dailyBoxOfficeDetailView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,7 +49,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func fetchDailyBoxOfficeDetail() {
+    private func fetchDailyBoxOfficeDetail(view: DailyBoxOfficeDetailView, completion: @escaping () -> Void) {
         networkService.request(url: APIs.Kobis.Movie.info.url,
                                requestHeaders: nil,
                                queryParameters: ["key": Environment.kobisApiKey,
@@ -53,7 +62,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                     let movieDetail = responseDTO.movieInfoResult.movieInfo.toModel()
                     
                     DispatchQueue.main.async {
-                        (self.view as! DailyBoxOfficeDetailView).updateMovieDetailContent(data: movieDetail)
+                        view.updateMovieDetailContent(data: movieDetail)
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -65,10 +74,11 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                     self.present(AlertFactory.alert(for: error), animated: true)
                 }
             }
+            completion()
         }
     }
     
-    private func fetchPoster(of movieName: String) {
+    private func fetchPoster(of movieName: String, view: DailyBoxOfficeDetailView) {
         networkService.request(url: APIs.Kakao.Search.image.url,
                                requestHeaders: ["Authorization": "KakaoAK \(Environment.kakaoApiKey)"],
                                queryParameters: ["query": "\(movieName) 영화 포스터",
@@ -104,7 +114,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         }
     }
     
-    private func fetchImage(from url: URL) {
+    private func fetchImage(view: DailyBoxOfficeDetailView, from url: URL) {
         networkService.request(url: url,
                                requestHeaders: nil,
                                queryParameters: nil) { result in

@@ -8,10 +8,18 @@
 import UIKit
 
 class DailyBoxOfficeDetailView: UIView {
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.style = .large
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }()
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isScrollEnabled = true
+        scrollView.alpha = .zero
         return scrollView
     }()
     
@@ -183,6 +191,7 @@ class DailyBoxOfficeDetailView: UIView {
     
     func setupUI() {
         self.backgroundColor = .systemBackground
+        self.addSubview(activityIndicatorView)
         
         contentView.addSubview(imageView)
         contentView.addSubview(directorsConstantLabel)
@@ -216,6 +225,9 @@ class DailyBoxOfficeDetailView: UIView {
         actorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
             imageView.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor),
             imageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
@@ -299,6 +311,14 @@ class DailyBoxOfficeDetailView: UIView {
             scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+    
+    func finishedLoadData() {
+        activityIndicatorView.stopAnimating()
+        
+        UIView.animate(withDuration: 0.15) {
+            self.scrollView.alpha = 1.0
+        }
     }
     
     func updateImageContent(image: UIImage) {
