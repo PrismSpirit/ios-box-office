@@ -15,6 +15,10 @@ enum APIs {
     enum Kobis {
         static let baseURL = URL(string: "https://www.kobis.or.kr/kobisopenapi/webservice/rest")!
     }
+    
+    enum Kakao {
+        static let baseURL = URL(string: "https://dapi.kakao.com/v2/")!
+    }
 }
 
 extension APIs.Kobis {
@@ -42,6 +46,21 @@ extension APIs.Kobis {
         }
         
         case info
+    }
+}
+
+extension APIs.Kakao {
+    enum Search: RawRepresentable, API {
+        static var baseURL = APIs.Kakao.baseURL.appendingPathComponent("search")
+        
+        var rawValue: String {
+            switch self {
+            case .image:
+                return "image"
+            }
+        }
+        
+        case image
     }
 }
 

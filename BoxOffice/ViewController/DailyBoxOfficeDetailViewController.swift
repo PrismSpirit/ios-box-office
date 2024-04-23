@@ -34,11 +34,11 @@ class DailyBoxOfficeDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func fetchDailyBoxOfficeDetail() {
         networkService.request(url: APIs.Kobis.Movie.info.url,
-                               queryParameters: ["key": Environment.apiKey,
-                                                "movieCd": movieCode]) { result in
+                               queryParameters: ["key": Environment.kobisApiKey,
+                                                 "movieCd": movieCode]) { result in
             switch result {
             case .success(let data):
                 do {

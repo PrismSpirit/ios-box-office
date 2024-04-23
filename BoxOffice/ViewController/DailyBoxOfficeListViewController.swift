@@ -145,10 +145,8 @@ final class DailyBoxOfficeListViewController: UIViewController {
     
     private func fetchDailyBoxOffices(completion: (() -> Void)?) {
         networkService.request(url: APIs.Kobis.BoxOffice.dailyList.url,
-                               queryParameters: [
-                                "key": Environment.apiKey,
-                                "targetDt": selectedDate.formatted(.iso8601FullDateWithoutSeparator)]
-        ) { result in
+                               queryParameters: ["key": Environment.kobisApiKey,
+                                                 "targetDt": selectedDate.formatted(.iso8601FullDateWithoutSeparator)]) { result in
             switch result {
             case .success(let data):
                 do {
