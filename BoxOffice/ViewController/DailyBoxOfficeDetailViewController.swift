@@ -29,6 +29,7 @@ class DailyBoxOfficeDetailViewController: UIViewController {
         self.title = movieName
         
         fetchDailyBoxOfficeDetail()
+        fetchPoster(of: movieName)
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +60,50 @@ class DailyBoxOfficeDetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.present(AlertFactory.alert(for: error), animated: true)
                 }
+            }
+        }
+    }
+    
+    private func fetchPoster(of movieName: String) {
+        networkService.request(url: APIs.Kakao.Search.image.url,
+                               requestHeaders: ["Authorization": "KakaoAK \(Environment.kakaoApiKey)"],
+                               queryParameters: ["query": "\(movieName) 영화 포스터",
+                                                 "size": "1"]) { result in
+            switch result {
+            case .success(let data):
+                var documents: [Document] = []
+                
+                do {
+                    documents = try JSONDecoder().decode(ImageSearchResponseDTO.self, from: data).documents.map { $0.toModel() }
+                } catch {
+                    self.present(AlertFactory.alert(for: error), animated: true)
+                }
+                
+                if documents.isEmpty {
+                    
+                } else {
+                    if let document = documents.first,
+                       let imageURL = URL(string: document.imageURL) {
+                        self.fetchImage(from: imageURL)
+                    }
+                }
+            case .failure(let error):
+                self.present(AlertFactory.alert(for: error), animated: true)
+            }
+        }
+    }
+    
+    private func fetchImage(from url: URL) {
+        networkService.request(url: url,
+                               requestHeaders: nil,
+                               queryParameters: nil) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    (self.view as! DailyBoxOfficeDetailView).updateImageContent(image: UIImage(data: data)!)
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }
