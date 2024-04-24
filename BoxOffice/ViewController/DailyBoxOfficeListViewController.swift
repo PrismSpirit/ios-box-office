@@ -44,7 +44,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         super.viewDidLoad()
         
         collectionView.delegate = self
-        configureDataSource()
+        configureDataSource(to: .list)
         setupToolBar()
         
         setupUI()
@@ -56,23 +56,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
         
         if boxOffices.isEmpty {
             handleRefreshControl()
-        }
-    }
-    
-    private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
-            cell.boxOffice = model
-            cell.accessories = [
-                .disclosureIndicator(displayed: .always)
-            ]
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
-            
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                for: indexPath,
-                                                                item: identifier)
         }
     }
     
@@ -98,25 +81,9 @@ final class DailyBoxOfficeListViewController: UIViewController {
         }
     }
     
-    private func changeDataSource(from layout: ScreenMode) {
+    private func configureDataSource(to layout: ScreenMode) {
         switch layout {
         case .list:
-            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeGridCell, BoxOffice> { cell, indexPath, model in
-                cell.boxOffice = model
-                cell.layer.borderWidth = 2
-                cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
-            }
-            
-            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
-                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
-                
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                    for: indexPath,
-                                                                    item: identifier)
-            }
-            collectionView.setCollectionViewLayout(getLayout(of: .grid), animated: false)
-            screenMode = .grid
-        case .grid:
             let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
                 cell.boxOffice = model
                 cell.accessories = [
@@ -133,6 +100,23 @@ final class DailyBoxOfficeListViewController: UIViewController {
             }
             collectionView.setCollectionViewLayout(getLayout(of: .list), animated: false)
             screenMode = .list
+        
+        case .grid:
+            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeGridCell, BoxOffice> { cell, indexPath, model in
+                cell.boxOffice = model
+                cell.layer.borderWidth = 2
+                cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
+            }
+            
+            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
+                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
+                
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                    for: indexPath,
+                                                                    item: identifier)
+            }
+            collectionView.setCollectionViewLayout(getLayout(of: .grid), animated: false)
+            screenMode = .grid
         }
     }
     
@@ -210,7 +194,13 @@ final class DailyBoxOfficeListViewController: UIViewController {
     @objc private func showScreenModeAlert() {
         let alertController = UIAlertController(title: "화면모드변경", message: nil, preferredStyle: .actionSheet)
         let alertAction = UIAlertAction(title: screenMode == .list ? "아이콘" : "리스트", style: .default) { _ in
-            self.changeDataSource(from: self.screenMode)
+            switch self.screenMode {
+            case .list:
+                self.screenMode = .grid
+            case .grid:
+                self.screenMode = .list
+            }
+            self.configureDataSource(to: self.screenMode)
             self.applySnapshot()
         }
         
