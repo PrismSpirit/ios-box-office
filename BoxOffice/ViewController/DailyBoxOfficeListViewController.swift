@@ -25,7 +25,8 @@ final class DailyBoxOfficeListViewController: UIViewController {
     private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now
     
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getLayout(of: .list))
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: LayoutManager.layout(screenMode: screenMode))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -44,7 +45,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
         super.viewDidLoad()
         
         collectionView.delegate = self
-        configureDataSource(to: .list)
+        
+        configureDataSource(to: screenMode)
+        collectionView.setCollectionViewLayout(LayoutManager.layout(screenMode: screenMode), animated: false)
+        applySnapshot()
+        
+        
         setupToolBar()
         
         setupUI()
@@ -59,28 +65,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
         }
     }
 
-    private func getLayout(of layout: ScreenMode) -> UICollectionViewCompositionalLayout {
-        switch layout {
-        case .list:
-            let config = UICollectionLayoutListConfiguration(appearance: .plain)
-            return UICollectionViewCompositionalLayout.list(using: config)
-        case .grid:
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
-                                                 heightDimension: .fractionalHeight(1.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalWidth(0.5))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                             subitems: [item])
-            group.interItemSpacing = .fixed(-15)
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = -15
-            return UICollectionViewCompositionalLayout(section: section)
-        }
-    }
-    
     private func configureDataSource(to layout: ScreenMode) {
         switch layout {
         case .list:
@@ -201,7 +185,9 @@ final class DailyBoxOfficeListViewController: UIViewController {
             case .grid:
                 self.screenMode = .list
             }
+            
             self.configureDataSource(to: self.screenMode)
+            self.collectionView.setCollectionViewLayout(LayoutManager.layout(screenMode: self.screenMode), animated: false)
             self.applySnapshot()
         }
         
