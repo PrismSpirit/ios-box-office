@@ -48,7 +48,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
-        super.init(frame: .zero)
+        super.init(frame: .infinite)
     }
     
     required init?(coder: NSCoder) {
@@ -142,6 +142,10 @@ final class DailyBoxOfficeGridContentView: DailyBoxOfficeContentView {
     }
     
     private func setupUI() {
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 2
+        self.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
+        
         titleLabel.numberOfLines = 2
         
         self.addSubview(rankLabel)

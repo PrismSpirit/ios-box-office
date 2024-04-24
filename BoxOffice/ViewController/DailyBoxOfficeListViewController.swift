@@ -76,9 +76,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
                 ]
             case .grid:
                 cell.screenMode = .grid
-                cell.layer.cornerRadius = 5
-                cell.layer.borderWidth = 2
-                cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
             }
         }
         
