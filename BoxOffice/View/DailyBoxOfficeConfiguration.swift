@@ -7,26 +7,20 @@
 
 import UIKit
 
-struct DailyBoxOfficeListConfiguration: UIContentConfiguration {
+struct DailyBoxOfficeConfiguration: UIContentConfiguration {
     var boxOffice: BoxOffice?
+    let screenMode: ScreenMode
     
     func makeContentView() -> UIView & UIContentView {
-        return DailyBoxOfficeListContentView(configuration: self)
+        switch screenMode {
+        case .list:
+            return DailyBoxOfficeListContentView(configuration: self)
+        case .grid:
+            return DailyBoxOfficeGridContentView(configuration: self)
+        }
     }
     
-    func updated(for state: UIConfigurationState) -> DailyBoxOfficeListConfiguration {
-        return self
-    }
-}
-
-struct DailyBoxOfficeGridConfiguration: UIContentConfiguration {
-    var boxOffice: BoxOffice?
-    
-    func makeContentView() -> UIView & UIContentView {
-        return DailyBoxOfficeGridContentView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> DailyBoxOfficeGridConfiguration {
+    func updated(for state: UIConfigurationState) -> DailyBoxOfficeConfiguration {
         return self
     }
 }

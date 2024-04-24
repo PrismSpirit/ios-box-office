@@ -58,7 +58,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
             handleRefreshControl()
         }
     }
-    
+
     private func getLayout(of layout: ScreenMode) -> UICollectionViewCompositionalLayout {
         switch layout {
         case .list:
@@ -86,6 +86,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         case .list:
             let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
                 cell.boxOffice = model
+                cell.screenMode = .list
                 cell.accessories = [
                     .disclosureIndicator(displayed: .always)
                 ]

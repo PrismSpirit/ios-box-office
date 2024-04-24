@@ -7,22 +7,16 @@
 
 import UIKit
 
-final class DailyBoxOfficeListCell: UICollectionViewListCell {
+final class DailyBoxOfficeCell: UICollectionViewListCell {
     var boxOffice: BoxOffice?
+    var screenMode: ScreenMode?
     
     override func updateConfiguration(using state: UICellConfigurationState) {
-        var configuration = DailyBoxOfficeListConfiguration().updated(for: state)
-        configuration.boxOffice = boxOffice
+        guard let screenMode else {
+            return
+        }
         
-        contentConfiguration = configuration
-    }
-}
-
-final class DailyBoxOfficeGridCell: UICollectionViewListCell {
-    var boxOffice: BoxOffice?
-    
-    override func updateConfiguration(using state: UICellConfigurationState) {
-        var configuration = DailyBoxOfficeGridConfiguration().updated(for: state)
+        var configuration = DailyBoxOfficeConfiguration(screenMode: screenMode).updated(for: state)
         configuration.boxOffice = boxOffice
         
         contentConfiguration = configuration
