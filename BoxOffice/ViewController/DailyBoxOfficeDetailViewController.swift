@@ -95,20 +95,18 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                     }
                 }
                 
-                if documents.isEmpty {
-                    DispatchQueue.main.async {
-                        self.fetchDefaultImage()
-                    }
+                if let document = documents.first,
+                   let imageURL = URL(string: document.imageURL) {
+                    self.fetchImage(view: view, from: imageURL)
                 } else {
-                    if let document = documents.first,
-                       let imageURL = URL(string: document.imageURL) {
-                        self.fetchImage(from: imageURL)
+                    DispatchQueue.main.async {
+                        view.updateImageContent(image: nil)
                     }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.present(AlertFactory.alert(for: error), animated: true)
-                    self.fetchDefaultImage()
+                    view.updateImageContent(image: nil)
                 }
             }
         }
@@ -121,21 +119,14 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    (self.view as! DailyBoxOfficeDetailView).updateImageContent(image: UIImage(data: data)!)
+                    view.updateImageContent(image: UIImage(data: data))
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.present(AlertFactory.alert(for: error), animated: true)
-                    self.fetchDefaultImage()
+                    view.updateImageContent(image: nil)
                 }
             }
         }
-    }
-    
-    private func fetchDefaultImage() {
-        guard let image = UIImage(named: "not_found_image") else {
-            return
-        }
-        (self.view as! DailyBoxOfficeDetailView).updateImageContent(image: image)
     }
 }

@@ -321,14 +321,26 @@ class DailyBoxOfficeDetailView: UIView {
         }
     }
     
-    func updateImageContent(image: UIImage) {
-        let ratio = image.size.height / image.size.width
+    func updateImageContent(image: UIImage?) {
+        var newImage: UIImage
+        
+        if let image {
+            newImage = image
+        } else {
+            guard let noImage = UIImage(named: "not_found_image") else {
+                return
+            }
+            
+            newImage = noImage
+        }
+        
+        let ratio = newImage.size.height / newImage.size.width
         
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: ratio),
         ])
         
-        imageView.image = image
+        imageView.image = newImage
     }
     
     func updateMovieDetailContent(data: MovieDetail) {
