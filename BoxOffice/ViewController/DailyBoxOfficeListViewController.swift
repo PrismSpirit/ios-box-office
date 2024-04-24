@@ -66,42 +66,28 @@ final class DailyBoxOfficeListViewController: UIViewController {
     }
 
     private func configureDataSource(to layout: ScreenMode) {
-        switch layout {
-        case .list:
-            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeListCell, BoxOffice> { cell, indexPath, model in
-                cell.boxOffice = model
+        let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeCell, BoxOffice> { cell, indexPath, model in
+            cell.boxOffice = model
+            switch layout {
+            case .list:
                 cell.screenMode = .list
                 cell.accessories = [
                     .disclosureIndicator(displayed: .always)
                 ]
-            }
-            
-            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
-                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
-                
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                    for: indexPath,
-                                                                    item: identifier)
-            }
-            collectionView.setCollectionViewLayout(getLayout(of: .list), animated: false)
-            screenMode = .list
-        
-        case .grid:
-            let cellRegistration = UICollectionView.CellRegistration<DailyBoxOfficeGridCell, BoxOffice> { cell, indexPath, model in
-                cell.boxOffice = model
+            case .grid:
+                cell.screenMode = .grid
+                cell.layer.cornerRadius = 5
                 cell.layer.borderWidth = 2
                 cell.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
             }
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
             
-            dataSource = UICollectionViewDiffableDataSource<Section, BoxOffice>(collectionView: collectionView) {
-                (collectionView: UICollectionView, indexPath: IndexPath, identifier: BoxOffice) -> UICollectionViewCell? in
-                
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                    for: indexPath,
-                                                                    item: identifier)
-            }
-            collectionView.setCollectionViewLayout(getLayout(of: .grid), animated: false)
-            screenMode = .grid
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                for: indexPath,
+                                                                item: identifier)
         }
     }
     
