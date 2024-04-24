@@ -39,6 +39,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let directorsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "감독"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -48,6 +49,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let directorsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -57,6 +59,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let productionYearConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "제작년도"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -66,6 +69,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let productionYearVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -75,6 +79,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let openDateConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "개봉일"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -84,6 +89,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let openDateVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -93,6 +99,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let runningTimeConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "상영시간"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -102,6 +109,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let runningTimeVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -111,6 +119,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let watchGradeConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "관람등급"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -120,6 +129,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let watchGradeVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -129,6 +139,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let nationsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "제작국가"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -138,6 +149,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let nationsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -147,6 +159,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let genreConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "장르"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -156,6 +169,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let genreVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -165,6 +179,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let actorsConstantLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.text = "배우"
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline)
@@ -174,6 +189,7 @@ class DailyBoxOfficeDetailView: UIView {
     private let actorsVariableLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
