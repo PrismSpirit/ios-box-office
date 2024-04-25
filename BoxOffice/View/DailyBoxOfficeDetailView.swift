@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyBoxOfficeDetailView: UIView {
+final class DailyBoxOfficeDetailView: UIView {
     private let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false

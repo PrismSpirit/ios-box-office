@@ -8,9 +8,9 @@
 import UIKit
 
 final class DailyBoxOfficeDetailViewController: UIViewController {
-    var networkService = NetworkService()
-    var movieName: String
-    var movieCode: String
+    private let networkService = NetworkService()
+    private let movieName: String
+    private let movieCode: String
     
     init(selectedMovieCode: String, selectedMovieName: String) {
         self.movieName = selectedMovieName
