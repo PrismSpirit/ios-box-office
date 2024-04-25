@@ -115,12 +115,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.present(AlertFactory.alert(for: error), animated: true)
+                        self.present(AlertManager.alert(for: error), animated: true)
                     }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.present(AlertManager.alert(for: error), animated: true)
                 }
             }
         }

@@ -70,12 +70,12 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.present(AlertFactory.alert(for: error), animated: true)
+                        self.present(AlertManager.alert(for: error), animated: true)
                     }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.present(AlertManager.alert(for: error), animated: true)
                 }
             }
             completion()
@@ -95,7 +95,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                     documents = try JSONDecoder().decode(ImageSearchResponseDTO.self, from: data).documents.map { $0.toModel() }
                 } catch {
                     DispatchQueue.main.async {
-                        self.present(AlertFactory.alert(for: error), animated: true)
+                        self.present(AlertManager.alert(for: error), animated: true)
                     }
                 }
                 
@@ -109,7 +109,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.present(AlertManager.alert(for: error), animated: true)
                     view.updateImageContent(image: nil)
                 }
             }
@@ -127,7 +127,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.present(AlertFactory.alert(for: error), animated: true)
+                    self.present(AlertManager.alert(for: error), animated: true)
                     view.updateImageContent(image: nil)
                 }
             }
