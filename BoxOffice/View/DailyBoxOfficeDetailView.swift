@@ -329,7 +329,7 @@ class DailyBoxOfficeDetailView: UIView {
         ])
     }
     
-    func finishedLoadData() {
+    func dismissActivityIndicator() {
         activityIndicatorView.stopAnimating()
         
         UIView.animate(withDuration: 0.15) {

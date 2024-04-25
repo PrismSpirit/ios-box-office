@@ -34,7 +34,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         
         fetchDailyBoxOfficeDetail(view: dailyBoxOfficeDetailView) {
             DispatchQueue.main.async {
-                dailyBoxOfficeDetailView.finishedLoadData()
+                dailyBoxOfficeDetailView.dismissActivityIndicator()
             }
         }
         

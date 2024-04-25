@@ -150,16 +150,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         self.present(calendarViewController, animated: true)
     }
     
-    private func setupToolBar() {
-        navigationController?.isToolbarHidden = false
-        
-        let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경", style: .plain, target: self, action: #selector(showScreenModeAlert))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barItems = [flexibleSpace, screenmodeButton, flexibleSpace]
-        self.setToolbarItems(barItems, animated: true)
-    }
-    
-    @objc private func showScreenModeAlert() {
+    @objc private func presentLayoutChangeActionSheet() {
         let alertController = UIAlertController(title: "화면모드변경", message: nil, preferredStyle: .actionSheet)
         let alertAction = UIAlertAction(title: screenMode == .list ? "아이콘" : "리스트", style: .default) { _ in
             switch self.screenMode {
@@ -177,6 +168,18 @@ final class DailyBoxOfficeListViewController: UIViewController {
         alertController.addAction(alertAction)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alertController, animated: true)
+    }
+    
+    private func setupToolBar() {
+        navigationController?.isToolbarHidden = false
+        
+        let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(presentLayoutChangeActionSheet))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barItems = [flexibleSpace, screenmodeButton, flexibleSpace]
+        self.setToolbarItems(barItems, animated: true)
     }
     
     private func setupUI() {
