@@ -41,6 +41,10 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         fetchPoster(of: movieName, view: dailyBoxOfficeDetailView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isToolbarHidden = false
     }
