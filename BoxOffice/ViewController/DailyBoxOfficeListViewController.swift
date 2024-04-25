@@ -124,7 +124,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func fetchDailyBoxOffices(completion: (() -> Void)?) {
+    private func fetchDailyBoxOffices(completion: @escaping (Result<Void, Error>) -> Void) {
         networkService.request(url: APIs.Kobis.BoxOffice.dailyList.url,
                                requestHeaders: nil,
                                queryParameters: ["key": Environment.kobisApiKey,
@@ -138,19 +138,12 @@ final class DailyBoxOfficeListViewController: UIViewController {
                         $0.toModel()
                     }
                     
-                    DispatchQueue.main.async {
-                        self.applySnapshot()
-                        self.collectionView.refreshControl?.endRefreshing()
-                    }
+                    completion(.success(Void()))
                 } catch {
-                    DispatchQueue.main.async {
-                        self.present(AlertManager.alert(for: error), animated: true)
-                    }
+                    completion(.failure(error))
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.present(AlertManager.alert(for: error), animated: true)
-                }
+                completion(.failure(error))
             }
         }
     }
@@ -163,8 +156,16 @@ final class DailyBoxOfficeListViewController: UIViewController {
         self.boxOffices.removeAll()
         self.applySnapshot()
         
-        fetchDailyBoxOffices {
-            self.collectionView.refreshControl?.endRefreshing()
+        fetchDailyBoxOffices { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.applySnapshot()
+                case .failure(let error):
+                    self.present(AlertManager.alert(for: error), animated: true)
+                }
+                self.collectionView.refreshControl?.endRefreshing()
+            }
         }
     }
     

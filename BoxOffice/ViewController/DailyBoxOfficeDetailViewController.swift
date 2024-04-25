@@ -36,13 +36,40 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         
         self.title = movieName
         
-        fetchDailyBoxOfficeDetail(view: dailyBoxOfficeDetailView) {
+        fetchDailyBoxOfficeDetail { result in
             DispatchQueue.main.async {
                 dailyBoxOfficeDetailView.dismissActivityIndicator()
+                
+                switch result {
+                case .success(let movieDetail):
+                    dailyBoxOfficeDetailView.updateMovieDetailContent(data: movieDetail)
+                case .failure(let error):
+                    self.present(AlertManager.alert(for: error), animated: true)
+                }
             }
         }
         
-        fetchPoster(of: movieName, view: dailyBoxOfficeDetailView)
+        fetchPosterURL(of: movieName) { result in
+            switch result {
+            case .success(let url):
+                self.fetchPosterImage(from: url) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let image):
+                            dailyBoxOfficeDetailView.updateImageContent(image: image)
+                        case .failure(let error):
+                            dailyBoxOfficeDetailView.updateImageContent(image: nil)
+                            self.present(AlertManager.alert(for: error), animated: true)
+                        }
+                    }
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    dailyBoxOfficeDetailView.updateImageContent(image: nil)
+                    self.present(AlertManager.alert(for: error), animated: true)
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +80,7 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         navigationController?.isToolbarHidden = false
     }
     
-    private func fetchDailyBoxOfficeDetail(view: DailyBoxOfficeDetailView, completion: @escaping () -> Void) {
+    private func fetchDailyBoxOfficeDetail(completion: @escaping (Result<MovieDetail, Error>) -> Void) {
         networkService.request(url: APIs.Kobis.Movie.info.url,
                                requestHeaders: nil,
                                queryParameters: ["key": Environment.kobisApiKey,
@@ -62,27 +89,18 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
             case .success(let data):
                 do {
                     let responseDTO = try JSONDecoder().decode(MovieDetailResponseDTO.self, from: data)
-                    
                     let movieDetail = responseDTO.movieInfoResult.movieInfo.toModel()
-                    
-                    DispatchQueue.main.async {
-                        view.updateMovieDetailContent(data: movieDetail)
-                    }
+                    completion(.success(movieDetail))
                 } catch {
-                    DispatchQueue.main.async {
-                        self.present(AlertManager.alert(for: error), animated: true)
-                    }
+                    completion(.failure(error))
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.present(AlertManager.alert(for: error), animated: true)
-                }
+                completion(.failure(error))
             }
-            completion()
         }
     }
     
-    private func fetchPoster(of movieName: String, view: DailyBoxOfficeDetailView) {
+    private func fetchPosterURL(of movieName: String, completion: @escaping (Result<URL?, Error>) -> Void) {
         networkService.request(url: APIs.Kakao.Search.image.url,
                                requestHeaders: ["Authorization": "KakaoAK \(Environment.kakaoApiKey)"],
                                queryParameters: ["query": "\(movieName) 영화 포스터",
@@ -94,42 +112,35 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
                 do {
                     documents = try JSONDecoder().decode(ImageSearchResponseDTO.self, from: data).documents.map { $0.toModel() }
                 } catch {
-                    DispatchQueue.main.async {
-                        self.present(AlertManager.alert(for: error), animated: true)
-                    }
+                    completion(.failure(error))
                 }
                 
                 if let document = documents.first,
                    let imageURL = URL(string: document.imageURL) {
-                    self.fetchImage(view: view, from: imageURL)
+                    completion(.success(imageURL))
                 } else {
-                    DispatchQueue.main.async {
-                        view.updateImageContent(image: nil)
-                    }
+                    completion(.success(nil))
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.present(AlertManager.alert(for: error), animated: true)
-                    view.updateImageContent(image: nil)
-                }
+                completion(.failure(error))
             }
         }
     }
     
-    private func fetchImage(view: DailyBoxOfficeDetailView, from url: URL) {
+    private func fetchPosterImage(from url: URL?, completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        guard let url else {
+            completion(.success(nil))
+            return
+        }
+        
         networkService.request(url: url,
                                requestHeaders: nil,
                                queryParameters: nil) { result in
             switch result {
             case .success(let data):
-                DispatchQueue.main.async {
-                    view.updateImageContent(image: UIImage(data: data))
-                }
+                completion(.success(UIImage(data: data)))
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.present(AlertManager.alert(for: error), animated: true)
-                    view.updateImageContent(image: nil)
-                }
+                completion(.failure(error))
             }
         }
     }
