@@ -209,36 +209,44 @@ final class DailyBoxOfficeDetailView: UIView {
         self.backgroundColor = .systemBackground
         self.addSubview(activityIndicatorView)
         
-        contentView.addSubview(imageView)
-        contentView.addSubview(directorsConstantLabel)
-        contentView.addSubview(directorsVariableLabel)
-        contentView.addSubview(productionYearConstantLabel)
-        contentView.addSubview(productionYearVariableLabel)
-        contentView.addSubview(openDateConstantLabel)
-        contentView.addSubview(openDateVariableLabel)
-        contentView.addSubview(runningTimeConstantLabel)
-        contentView.addSubview(runningTimeVariableLabel)
-        contentView.addSubview(watchGradeConstantLabel)
-        contentView.addSubview(watchGradeVariableLabel)
-        contentView.addSubview(nationsConstantLabel)
-        contentView.addSubview(nationsVariableLabel)
-        contentView.addSubview(genreConstantLabel)
-        contentView.addSubview(genreVariableLabel)
-        contentView.addSubview(actorsConstantLabel)
-        contentView.addSubview(actorsVariableLabel)
+        [
+            imageView,
+            directorsConstantLabel,
+            directorsVariableLabel,
+            productionYearConstantLabel,
+            productionYearVariableLabel,
+            openDateConstantLabel,
+            openDateVariableLabel,
+            runningTimeConstantLabel,
+            runningTimeVariableLabel,
+            watchGradeConstantLabel,
+            watchGradeVariableLabel,
+            nationsConstantLabel,
+            nationsVariableLabel,
+            genreConstantLabel,
+            genreVariableLabel,
+            actorsConstantLabel,
+            actorsVariableLabel
+        ].forEach {
+            contentView.addSubview($0)
+        }
         scrollView.addSubview(contentView)
         self.addSubview(scrollView)
         
         productionYearConstantLabel.setContentHuggingPriority(.required, for: .horizontal)
         
-        directorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        productionYearVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        openDateVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        runningTimeVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        watchGradeVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        nationsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        genreVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        actorsVariableLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        [
+            directorsVariableLabel,
+            productionYearVariableLabel,
+            openDateVariableLabel,
+            runningTimeVariableLabel,
+            watchGradeVariableLabel,
+            nationsVariableLabel,
+            genreVariableLabel,
+            actorsVariableLabel
+        ].forEach {
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        }
         
         NSLayoutConstraint.activate([
             activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
