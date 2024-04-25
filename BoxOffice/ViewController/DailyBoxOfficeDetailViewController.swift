@@ -18,6 +18,10 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         let view = DailyBoxOfficeDetailView()
         self.view = view
@@ -47,10 +51,6 @@ final class DailyBoxOfficeDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isToolbarHidden = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func fetchDailyBoxOfficeDetail(view: DailyBoxOfficeDetailView, completion: @escaping () -> Void) {

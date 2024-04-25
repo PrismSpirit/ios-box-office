@@ -44,10 +44,10 @@ final class DailyBoxOfficeListViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         
+        configureRefreshControl()
+        configureToolBar()
         configureDataSource(to: screenMode)
         collectionView.setCollectionViewLayout(LayoutManager.layout(screenMode: screenMode), animated: false)
-        configureToolBar()
-        configureRefreshControl()
         applySnapshot()
         
         setupUI()
@@ -59,6 +59,39 @@ final class DailyBoxOfficeListViewController: UIViewController {
         if boxOffices.isEmpty {
             handleRefreshControl()
         }
+    }
+    
+    private func setupUI() {
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(collectionView)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "날짜선택",
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(presentCalendar))
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func configureRefreshControl() {
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    private func configureToolBar() {
+        navigationController?.isToolbarHidden = false
+        
+        let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(presentLayoutChangeActionSheet))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barItems = [flexibleSpace, screenmodeButton, flexibleSpace]
+        self.setToolbarItems(barItems, animated: true)
     }
 
     private func configureDataSource(to layout: ScreenMode) {
@@ -122,11 +155,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
         }
     }
     
-    private func configureRefreshControl() {
-        collectionView.refreshControl = UIRefreshControl()
-        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
-    }
-    
     @objc private func handleRefreshControl() {
         self.title = selectedDate.formatted(.iso8601FullDate)
         
@@ -164,34 +192,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
         alertController.addAction(alertAction)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alertController, animated: true)
-    }
-    
-    private func configureToolBar() {
-        navigationController?.isToolbarHidden = false
-        
-        let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경",
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(presentLayoutChangeActionSheet))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barItems = [flexibleSpace, screenmodeButton, flexibleSpace]
-        self.setToolbarItems(barItems, animated: true)
-    }
-    
-    private func setupUI() {
-        self.view.backgroundColor = .systemBackground
-        self.view.addSubview(collectionView)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "날짜선택",
-                                                                 style: .plain,
-                                                                 target: self,
-                                                                 action: #selector(presentCalendar))
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
     }
 }
 
