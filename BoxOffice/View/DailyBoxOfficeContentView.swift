@@ -27,9 +27,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .title3)
-        label.textAlignment = .center
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -149,7 +147,9 @@ final class DailyBoxOfficeGridContentView: DailyBoxOfficeContentView {
         self.layer.borderWidth = 2
         self.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
         
+        titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
+        titleLabel.adjustsFontSizeToFitWidth = true
         
         self.addSubview(rankLabel)
         self.addSubview(rankingChangeLabel)
