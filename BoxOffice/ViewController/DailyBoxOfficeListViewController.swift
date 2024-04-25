@@ -21,7 +21,6 @@ final class DailyBoxOfficeListViewController: UIViewController {
     private var boxOffices: [BoxOffice] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section, BoxOffice>?
     private let networkService: NetworkService
-    
     private var selectedDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: -1, to: Date()) ?? .now
     
     private lazy var collectionView: UICollectionView = {
@@ -43,18 +42,15 @@ final class DailyBoxOfficeListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.delegate = self
         
         configureDataSource(to: screenMode)
         collectionView.setCollectionViewLayout(LayoutManager.layout(screenMode: screenMode), animated: false)
+        configureToolBar()
+        configureRefreshControl()
         applySnapshot()
         
-        
-        setupToolBar()
-        
         setupUI()
-        configureRefreshControl()
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -170,7 +166,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    private func setupToolBar() {
+    private func configureToolBar() {
         navigationController?.isToolbarHidden = false
         
         let screenmodeButton = UIBarButtonItem(title: "화면 모드 변경",

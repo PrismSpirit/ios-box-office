@@ -14,7 +14,7 @@ fileprivate struct ListLayout {
     }
 }
 
-fileprivate struct Grid2x2Layout {
+fileprivate struct Grid2ColumnLayout {
     static func getLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
                                              heightDimension: .fractionalHeight(1.0))
@@ -40,7 +40,7 @@ struct LayoutManager {
         case .list:
             return ListLayout.getLayout()
         case .grid:
-            return Grid2x2Layout.getLayout()
+            return Grid2ColumnLayout.getLayout()
         }
     }
 }
