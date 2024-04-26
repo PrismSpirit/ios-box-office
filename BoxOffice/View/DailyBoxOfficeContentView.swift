@@ -156,6 +156,8 @@ final class DailyBoxOfficeGridContentView: DailyBoxOfficeContentView {
     }
     
     private func setupUI() {
+        self.maximumContentSizeCategory = .accessibilityMedium
+        
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 2
         self.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
