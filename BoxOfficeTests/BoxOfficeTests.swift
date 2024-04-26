@@ -55,18 +55,18 @@ extension DailyBoxOfficeResponseDTO: Equatable {
                                                             .init(rankingEntry: .old, movieCode: "20210864")
                                                          ]))
     
-    public static func == (lhs: BoxOffice.DailyBoxOfficeResponseDTO, rhs: BoxOffice.DailyBoxOfficeResponseDTO) -> Bool {
+    public static func == (lhs: DailyBoxOfficeResponseDTO, rhs: DailyBoxOfficeResponseDTO) -> Bool {
         return lhs.boxOfficeResult == rhs.boxOfficeResult
     }
 }
 
 extension DailyBoxOfficeResponseDTO.BoxOfficeResultDTO: Equatable {
-    public static func == (lhs: BoxOffice.DailyBoxOfficeResponseDTO.BoxOfficeResultDTO, rhs: BoxOffice.DailyBoxOfficeResponseDTO.BoxOfficeResultDTO) -> Bool {
+    public static func == (lhs: DailyBoxOfficeResponseDTO.BoxOfficeResultDTO, rhs: DailyBoxOfficeResponseDTO.BoxOfficeResultDTO) -> Bool {
         return (lhs.boxOfficeType == rhs.boxOfficeType) && (lhs.queriedDateRange == rhs.queriedDateRange) && (lhs.dailyBoxOfficeList == rhs.dailyBoxOfficeList)
     }
 }
 
-extension DailyBoxOfficeResponseDTO.DailyBoxOffice: Equatable {
+extension DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO: Equatable {
     init(rankingEntry: RankingEntryDTO, movieCode: String) {
         self.init(registrationNumber: "",
                   rank: "",
@@ -88,7 +88,7 @@ extension DailyBoxOfficeResponseDTO.DailyBoxOffice: Equatable {
                   showCount: "")
     }
     
-    public static func == (lhs: DailyBoxOfficeResponseDTO.DailyBoxOffice, rhs: DailyBoxOfficeResponseDTO.DailyBoxOffice) -> Bool {
+    public static func == (lhs: DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO, rhs: DailyBoxOfficeResponseDTO.DailyBoxOfficeDTO) -> Bool {
         return lhs.movieCode == rhs.movieCode
     }
 }
