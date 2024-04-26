@@ -11,6 +11,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     let rankLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .largeTitle)
         return label
@@ -19,6 +20,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     let rankingChangeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .callout)
         return label
@@ -27,6 +29,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
         label.font = .preferredFont(forTextStyle: .title3)
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -35,6 +38,7 @@ class DailyBoxOfficeContentView: UIView, UIContentView, AttributedStringConverta
     let audienceInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
