@@ -136,6 +136,15 @@ final class DailyBoxOfficeListContentView: DailyBoxOfficeContentView {
 }
 
 final class DailyBoxOfficeGridContentView: DailyBoxOfficeContentView {
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
     override init(configuration: UIContentConfiguration) {
         super.init(configuration: configuration)
         setupUI()
@@ -151,28 +160,27 @@ final class DailyBoxOfficeGridContentView: DailyBoxOfficeContentView {
         self.layer.borderWidth = 2
         self.layer.borderColor = CGColor(gray: 0.5, alpha: 1.0)
         
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 2
+        rankLabel.adjustsFontSizeToFitWidth = true
+        rankingChangeLabel.adjustsFontSizeToFitWidth = true
         titleLabel.adjustsFontSizeToFitWidth = true
+        audienceInfoLabel.adjustsFontSizeToFitWidth = true
         
-        self.addSubview(rankLabel)
-        self.addSubview(rankingChangeLabel)
-        self.addSubview(titleLabel)
-        self.addSubview(audienceInfoLabel)
-
+        rankLabel.textAlignment = .center
+        rankingChangeLabel.textAlignment = .center
+        titleLabel.textAlignment = .center
+        audienceInfoLabel.textAlignment = .center
+        
+        stackView.addArrangedSubview(rankLabel)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(rankingChangeLabel)
+        stackView.addArrangedSubview(audienceInfoLabel)
+        self.addSubview(stackView)
+        
         NSLayoutConstraint.activate([
-            rankLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            rankingChangeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            audienceInfoLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-
-            rankLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: rankLabel.bottomAnchor, constant: 32),
-            rankingChangeLabel.bottomAnchor.constraint(equalTo: audienceInfoLabel.topAnchor, constant: -8),
-            audienceInfoLabel.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor),
-
-            titleLabel.widthAnchor.constraint(equalTo: self.layoutMarginsGuide.widthAnchor),
-            audienceInfoLabel.widthAnchor.constraint(equalTo: self.layoutMarginsGuide.widthAnchor),
+            stackView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor),
         ])
     }
 }
