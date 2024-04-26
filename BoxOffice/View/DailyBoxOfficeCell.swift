@@ -1,5 +1,5 @@
 //
-//  DailyBoxOfficeListCell.swift
+//  DailyBoxOfficeCell.swift
 //  BoxOffice
 //
 //  Created by Jaehun Lee on 4/10/24.

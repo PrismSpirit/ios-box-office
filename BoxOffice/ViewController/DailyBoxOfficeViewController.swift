@@ -1,5 +1,5 @@
 //
-//  DailyBoxOfficeListViewController.swift
+//  DailyBoxOfficeViewController.swift
 //  BoxOffice
 //
 //  Created by kjs on 13/01/23.
@@ -12,7 +12,7 @@ enum ScreenMode {
     case grid
 }
 
-final class DailyBoxOfficeListViewController: UIViewController {
+final class DailyBoxOfficeViewController: UIViewController {
     enum Section {
         case main
     }
@@ -196,7 +196,7 @@ final class DailyBoxOfficeListViewController: UIViewController {
     }
 }
 
-extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
+extension DailyBoxOfficeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dailyBoxOfficeDetailViewController = DailyBoxOfficeDetailViewController(selectedMovieCode: boxOffices[indexPath.row].movieCode, selectedMovieName: boxOffices[indexPath.row].title)
         
@@ -205,7 +205,7 @@ extension DailyBoxOfficeListViewController: UICollectionViewDelegate {
     }
 }
 
-extension DailyBoxOfficeListViewController: CalendarViewController.Delegate {
+extension DailyBoxOfficeViewController: CalendarViewController.Delegate {
     func changeSelectedDate(date: Date) {
         selectedDate = date
         handleRefreshControl()
