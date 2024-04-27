@@ -124,28 +124,15 @@ final class DailyBoxOfficeViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func fetchDailyBoxOffices(completion: @escaping (Result<Void, Error>) -> Void) {
-        networkService.request(url: APIs.Kobis.BoxOffice.dailyList.url,
-                               requestHeaders: nil,
-                               queryParameters: ["key": Environment.kobisApiKey,
-                                                 "targetDt": selectedDate.formatted(.iso8601FullDateWithoutSeparator)]) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let responseDTO = try JSONDecoder().decode(DailyBoxOfficeResponseDTO.self, from: data)
-                    
-                    self.boxOffices = responseDTO.boxOfficeResult.dailyBoxOfficeList.map {
-                        $0.toModel()
-                    }
-                    
-                    completion(.success(Void()))
-                } catch {
-                    completion(.failure(error))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    private func fetchDailyBoxOffices() async throws -> [BoxOffice] {
+        let data = try await networkService.request(url: APIs.Kobis.BoxOffice.dailyList.url,
+                                                    requestHeaders: nil,
+                                                    queryParameters: ["key": Environment.kobisApiKey,
+                                                                      "targetDt": selectedDate.formatted(.iso8601FullDateWithoutSeparator)])
+        
+        let responseDTO = try JSONDecoder().decode(DailyBoxOfficeResponseDTO.self, from: data)
+        
+        return responseDTO.boxOfficeResult.dailyBoxOfficeList.map { $0.toModel() }
     }
     
     @objc private func handleRefreshControl() {
@@ -156,16 +143,14 @@ final class DailyBoxOfficeViewController: UIViewController {
         self.boxOffices.removeAll()
         self.applySnapshot()
         
-        fetchDailyBoxOffices { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.applySnapshot()
-                case .failure(let error):
-                    self.present(AlertManager.alert(for: error), animated: true)
-                }
-                self.collectionView.refreshControl?.endRefreshing()
+        Task {
+            do {
+                boxOffices = try await fetchDailyBoxOffices()
+                applySnapshot()
+            } catch {
+                self.present(AlertManager.alert(for: error), animated: true)
             }
+            collectionView.refreshControl?.endRefreshing()
         }
     }
     

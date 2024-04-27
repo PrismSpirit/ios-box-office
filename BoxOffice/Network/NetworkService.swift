@@ -27,6 +27,35 @@ final class NetworkService {
     
     func request(url: URL,
                  requestHeaders: [String: String]?,
+                 queryParameters: [String: String]?) async throws -> Data {
+        guard var components = URLComponents(url: url,
+                                             resolvingAgainstBaseURL: false) else {
+            throw NetworkError.invalidURL
+        }
+        
+        if let queryParameters {
+            components.queryItems = queryParameters.map {
+                URLQueryItem(name: $0.key, value: $0.value)
+            }
+        }
+
+        guard let url = components.url else {
+            throw NetworkError.invalidURL
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        
+        if let requestHeaders {
+            urlRequest.allHTTPHeaderFields = requestHeaders
+        }
+        
+        let (data, _) = try await session.data(for: urlRequest)
+        
+        return data
+    }
+    
+    func request(url: URL,
+                 requestHeaders: [String: String]?,
                  queryParameters: [String: String]?,
                  completion: @escaping CompletionHandler) {
         guard var components = URLComponents(url: url,
