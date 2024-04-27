@@ -2,7 +2,7 @@
 //  APIs.swift
 //  BoxOffice
 //
-//  Created by Jaehun Lee on 4/6/24.
+//  Created by Prism, Gray on 4/6/24.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  LayoutManager.swift
 //  BoxOffice
 //
-//  Created by Jaehun Lee on 4/24/24.
+//  Created by Prism, Gray on 4/24/24.
 //
 
 import UIKit

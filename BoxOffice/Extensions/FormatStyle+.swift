@@ -2,7 +2,7 @@
 //  FormatStyle+.swift
 //  BoxOffice
 //
-//  Created by Jaehun Lee on 4/10/24.
+//  Created by Prism, Gray on 4/10/24.
 //
 
 import Foundation

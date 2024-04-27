@@ -2,7 +2,7 @@
 //  DailyBoxOfficeContentView.swift
 //  BoxOffice
 //
-//  Created by Jaehun Lee on 4/12/24.
+//  Created by Prism, Gray on 4/12/24.
 //
 
 import UIKit

@@ -2,7 +2,7 @@
 //  BoxOffice.swift
 //  BoxOffice
 //
-//  Created by JIWOONG on 2024/04/10.
+//  Created by Prism, Gray on 2024/04/10.
 //
 
 struct BoxOffice: Hashable {

@@ -2,7 +2,7 @@
 //  DailyBoxOfficeResponseDTO.swift
 //  BoxOffice
 //
-//  Created by JIWOONG on 2024/04/02.
+//  Created by Prism, Gray on 2024/04/02.
 //
 
 struct DailyBoxOfficeResponseDTO: Decodable {

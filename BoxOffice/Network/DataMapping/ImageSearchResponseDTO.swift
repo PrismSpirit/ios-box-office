@@ -2,7 +2,7 @@
 //  ImageSearchResponseDTO.swift
 //  BoxOffice
 //
-//  Created by Jaehun Lee on 4/23/24.
+//  Created by Prism, Gray on 4/23/24.
 //
 
 struct ImageSearchResponseDTO: Decodable {
